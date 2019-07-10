@@ -2,8 +2,8 @@ const player = require('./Player');
 
 class Game {
     constructor(io){
-        this.players = [];
-        this.players[0] = player;
+        this.elements = [];
+        this.elements[0] = player;
     }
 }
 

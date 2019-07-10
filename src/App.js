@@ -30,8 +30,8 @@ class App {
 
     start() {
         setInterval(() => {
-            this.io.emit('state', this.state);
-        },2000);
+            this.io.emit('frame', this.state);
+        },1000);
     }
 }
 

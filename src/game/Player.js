@@ -1,8 +1,12 @@
 class Player {
     constructor() {
-        this.speed = 10;
         this.positionX = 0;
         this.positionY = 0;
+        this.width = 50;
+        this.height = 50;
+        this.speed = 8;
+        this.type = 'rect';
+        this.color = '#ff4e4e';
     }
 
     moveLeft() {
@@ -14,11 +18,11 @@ class Player {
     }
 
     moveUp() {
-        this.positionY += this.speed;
+        this.positionY -= this.speed;
     }
 
     moveDown() {
-        this.positionY -= this.speed;
+        this.positionY += this.speed;
     }
 }
 
