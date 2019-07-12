@@ -12,15 +12,13 @@
     <script src="/js/canvas.js"></script>
     <script src="/js/joystick.js"></script>
     <script>
-      const canvas = new Canvas('canvas');
+      canvas.addElement('canvas');
       const socket = io();
 
-
       socket.on('frame', (frame) => {
-        canvas.addElements(frame.elements);
-        console.log(canvas.elements);
+        canvas.addElements(frame.elements)
       });
-      canvas.play();
+      canvas.run();
     </script>
   </body>
 </html>

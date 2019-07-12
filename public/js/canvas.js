@@ -1,21 +1,20 @@
-class Canvas {
-    constructor(id){
-        this.canvas = document.getElementById(id);
-        this.canvas.width = 800;
-        this.canvas.height = 600;
-        this.ctx = this.canvas.getContext('2d');
+const canvas = {
+    obj: null,
+    ctx: null,
+    elements: null,
+    addElement: function(id) {
+        this.obj = document.getElementById(id);
+        this.obj.width = 800;
+        this.obj.height = 600;
+        this.ctx = this.obj.getContext('2d');
         this.elements = [];
-    }
-
-    addElements(elements) {
+    },
+    addElements: function(elements) {
         this.elements = elements;
-    }
-
-    render() {
+    },
+    render: function() {
         this.ctx.fillStyle = "#50beff";
         this.ctx.fillRect(0, 0, 800, 600);
-
-        console.log(this.elements);
         if(this.elements.length > 0){
             this.elements.map((e) => {
                 if (e.type == 'rect') {
@@ -24,10 +23,9 @@ class Canvas {
                 }
             })
         }
-    }
-
-    play() {
-        this.render();
-        window.requestAnimationFrame(this.play);
+    },
+    run: function() {
+        canvas.render();
+        window.requestAnimationFrame(canvas.run); 
     }
 }
