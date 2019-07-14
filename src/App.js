@@ -31,7 +31,7 @@ class App {
     start() {
         setInterval(() => {
             this.io.emit('frame', this.state);
-        },16);
+        }, process.env.FRAME_RATE);
     }
 }
 

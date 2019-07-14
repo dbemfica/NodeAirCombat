@@ -14,6 +14,12 @@ function routes({ io, Game }) {
         socket.on('move_down', (message) => {
             Game.elements[0].moveDown();
         })
+
+        socket.on('fire', (message) => {
+            console.log(message)
+            const fire = Game.elements[0].fire();
+            Game.addElement(fire);
+        })
     });
 }
 

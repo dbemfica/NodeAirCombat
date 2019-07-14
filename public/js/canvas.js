@@ -21,6 +21,13 @@ const canvas = {
                     this.ctx.fillStyle = e.color;
                     this.ctx.fillRect(e.positionX, e.positionY, e.width, e.height);
                 }
+                if (e.type == 'circle') {
+                    this.ctx.beginPath();
+                    this.ctx.fillStyle = e.color;
+                    this.ctx.arc(e.positionX, e.positionY, e.lenght, 0, 2*Math.PI);
+                    this.ctx.fill();
+                }
+                
             })
         }
     },

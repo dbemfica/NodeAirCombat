@@ -4,14 +4,27 @@ class Game {
     constructor(io){
         this.elements = [];
         this.elements[0] = player;
-        this.elements[1] = {};
-        this.elements[1].positionX = 400;
-        this.elements[1].positionY = 400;
-        this.elements[1].width = 50;
-        this.elements[1].height = 50;
-        this.elements[1].speed = 8;
-        this.elements[1].type = 'rect';
-        this.elements[1].color = '#00ff00';
+
+        setInterval(() => {
+            this.removeElement();
+        }, process.env.FRAME_RATE)
+    }
+
+    addElement(element) {
+        this.elements.push(element);
+    }
+
+    removeElement() {
+        if (this.elements.length > 0) {
+            for (let i = 0; i < this.elements.length; i++) {
+                if (this.elements[i].positionX > 900 || this.elements[i].positionX < -100) {
+                    this.elements.splice(i, 1);
+                }
+                if (this.elements[i].positionY > 900 || this.elements[i].positionY < -100) {
+                    this.elements.splice(i, 1);
+                }
+            }
+        }
     }
 }
 

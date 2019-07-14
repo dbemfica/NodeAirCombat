@@ -15,4 +15,8 @@ document.addEventListener("keydown", event => {
     if(event.keyCode === 40){
         socket.emit('move_down', true);
     }
+    //FIRE
+    if(event.keyCode === 32){
+        socket.emit('fire', true);
+    }
 });
