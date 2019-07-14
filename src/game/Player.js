@@ -18,18 +18,32 @@ class Player {
 
     moveLeft() {
         this.positionX -= this.speed;
+        if (this.positionX <= 0) {
+            this.positionX = 0;
+        }
     }
 
     moveRight() {
         this.positionX += this.speed;
+        const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
+        if (this.positionX >= CANVAS_WIDTH - this.width) {
+            this.positionX = CANVAS_WIDTH - this.width;
+        }
     }
 
     moveUp() {
         this.positionY -= this.speed;
+        if (this.positionY <= 0) {
+            this.positionY = 0;
+        }
     }
 
     moveDown() {
         this.positionY += this.speed;
+        const CANVAS_HEIGHT = parseInt(process.env.CANVAS_HEIGHT);
+        if (this.positionY >= CANVAS_HEIGHT - this.height) {
+            this.positionY = CANVAS_HEIGHT - this.height;
+        }
     }
 
     fire() {
