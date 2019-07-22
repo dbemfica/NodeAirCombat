@@ -1,7 +1,10 @@
+const Element = require('./Element');
 const Shot = require('./Shot');
 
-class Player {
+class Player extends Element {
     constructor() {
+        super();
+        this.health = 100;
         this.width = 50;
         this.height = 50;
         this.positionX = 400;
@@ -14,6 +17,7 @@ class Player {
         this.shot.lenght = 5;
         this.shot.speed = 8;
         this.shot.color = '#0000ff';
+        this.damage = 10;
     }
 
     moveLeft() {
@@ -48,14 +52,22 @@ class Player {
 
     fire() {
         const shot = new Shot({
-            x: (this.positionX + this.width / 2),
-            y: this.positionY,
-            l: this.shot.lenght,
-            s: this.shot.speed,
-            c: this.shot.color,
-            d: 'up'
+            positionX: (this.positionX + this.width / 2),
+            positionY: this.positionY,
+            lenght: this.shot.lenght,
+            speed: this.shot.speed,
+            color: this.shot.color,
+            direction: 'up'
         });
         return shot;
+    }
+
+    colision(element) {
+        element.sufferDamage(this);
+    }
+
+    sufferDamage(element) {
+        this.health -= element.damage;
     }
 }
 

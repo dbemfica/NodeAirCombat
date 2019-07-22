@@ -6,7 +6,7 @@ const Game = require('./game/Game');
 
 class App {
     constructor() {
-        this.state = Game;
+        this.game = Game;
         this.express = express();
         this.server = server;
         this.server = server.Server(this.express);
@@ -19,7 +19,7 @@ class App {
 
     routes() {
         this.express.use(require('./routes/http'));
-        require('./routes/websocket')({io: this.io, Game: this.state});
+        require('./routes/websocket')({io: this.io, Game: this.game});
     }
 
     templates() {
@@ -30,7 +30,9 @@ class App {
 
     start() {
         setInterval(() => {
-            this.io.emit('frame', this.state);
+            this.game.update();
+            // console.log(this.game.elements[3])
+            this.io.emit('frame', this.game);
         }, process.env.FRAME_RATE);
     }
 }

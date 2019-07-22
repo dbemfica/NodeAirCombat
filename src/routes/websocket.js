@@ -16,7 +16,6 @@ function routes({ io, Game }) {
         })
 
         socket.on('fire', (message) => {
-            console.log(message)
             const fire = Game.elements[0].fire();
             Game.addElement(fire);
         })

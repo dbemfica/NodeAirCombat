@@ -1,21 +1,33 @@
-class Shot {
-    constructor(properties) {
-        this.positionX = properties.x;
-        this.positionY = properties.y;
-        this.lenght = properties.l;
-        this.speed = properties.s;
-        this.type = 'circle';
-        this.color = properties.c;
+const Element = require('./Element');
 
-        setInterval(() => {
-            this.move(properties.d)
-        }, process.env.FRAME_RATE)
+class Shot extends Element {
+    constructor(properties) {
+        super();
+        this.health = 1;
+        this.positionX = properties.positionX;
+        this.positionY = properties.positionY;
+        this.width = 5;
+        this.height = 5;
+        this.lenght = properties.lenght;
+        this.speed = properties.speed;
+        this.type = 'circle';
+        this.color = properties.color;
+        this.direction = properties.direction;
+        this.damage = 10;
     }
 
-    move(direction) {
-        if (direction === 'up') {
+    update() {
+        if (this.direction === 'up') {
             this.positionY -= this.speed;
         }
+        if (this.direction === 'down') {
+            this.positionY += this.speed;
+        }
+    }
+
+    colision(element) {
+        this.health = 0;
+        element.sufferDamage(this);
     }
 }
 
