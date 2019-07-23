@@ -3,16 +3,10 @@ const Enemy = require('./Enemy');
 
 class Game {
     constructor(io){
+        this.frame = 0;
+
         this.elements = [];
         this.elements[0] = player;
-        this.elements[1] = new Enemy;
-        this.elements[1].positionX = 10;
-
-        this.elements[2] = new Enemy;
-        this.elements[2].positionX = 110;
-
-        this.elements[3] = new Enemy;
-        this.elements[3].positionX = 210;
     }
 
     addElement(element) {
@@ -20,6 +14,8 @@ class Game {
     }
 
     update() {
+        this.frame++;
+
         if (this.elements.length > 0) {
             for (let i = 0; i < this.elements.length; i++) {
                 this.elements[i].update();
@@ -27,20 +23,22 @@ class Game {
         }
         this.colision();
         this.removeElement();
+        this.addEnemy();
+        this.enemyFire();
     }
 
     removeElement() {
         if (this.elements.length > 0) {
             for (let i = 0; i < this.elements.length; i++) {
+                if (this.elements[i].health <= 0) {
+                    this.elements.splice(i, 1);
+                    continue;
+                }
                 if (this.elements[i].positionX > 900 || this.elements[i].positionX < -100) {
                     this.elements.splice(i, 1);
                     continue;
                 }
                 if (this.elements[i].positionY > 900 || this.elements[i].positionY < -100) {
-                    this.elements.splice(i, 1);
-                    continue;
-                }
-                if (this.elements[i].health <= 0) {
                     this.elements.splice(i, 1);
                     continue;
                 }
@@ -70,6 +68,26 @@ class Game {
                         e1.colision(e2);
                         continue;
                     }
+                }
+            }
+        }
+    }
+
+    addEnemy() {
+        if (this.frame % 300 === 0) {
+            this.elements[this.elements.length] = new Enemy({positionX: Math.random() * (800 - 0) + 0});
+            console.log(this.elements[1] instanceof Enemy);
+        }
+    }
+    enemyFire() {
+        if (this.elements.length > 0) {
+            for (let i = 0; i < this.elements.length; i++) {
+                let fire = null;
+                if (this.elements[i] instanceof Enemy) {
+                    fire = this.elements[i].fire();
+                }
+                if (fire !== null) {
+                    this.elements[this.elements.length] = fire;
                 }
             }
         }

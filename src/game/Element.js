@@ -4,6 +4,7 @@ class Element {
     constructor() {
         this.uuid = uuidv4();
         this.health = 0;
+        this.frame = 0;
     }
 
     update(){};
