@@ -31,7 +31,6 @@ class App {
     start() {
         setInterval(() => {
             this.game.update();
-            // console.log(this.game.elements[3])
             this.io.emit('frame', this.game);
         }, process.env.FRAME_RATE);
     }

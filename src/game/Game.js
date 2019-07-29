@@ -1,16 +1,14 @@
-const player = require('./Player');
 const Enemy = require('./Enemy');
 
 class Game {
     constructor(io){
         this.frame = 0;
-
         this.elements = [];
-        this.elements[0] = player;
     }
 
     addElement(element) {
         this.elements.push(element);
+        return this.elements.length-1;
     }
 
     update() {
@@ -79,6 +77,7 @@ class Game {
             console.log(this.elements[1] instanceof Enemy);
         }
     }
+
     enemyFire() {
         if (this.elements.length > 0) {
             for (let i = 0; i < this.elements.length; i++) {

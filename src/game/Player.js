@@ -4,6 +4,7 @@ const Shot = require('./Shot');
 class Player extends Element {
     constructor() {
         super();
+        this.socket = null;
         this.health = 100;
         this.width = 50;
         this.height = 50;
@@ -71,4 +72,4 @@ class Player extends Element {
     }
 }
 
-module.exports = new Player();
+module.exports = Player;
