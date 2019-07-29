@@ -23,4 +23,4 @@ Depois basta rodar o comando
 npm run start
 ```
 
-Com o servidor rodando acesse o endereço **http:localhost:3000** para **http:localhost:3000/joystick** para acessar o joystick
+Com o servidor rodando acesse o endereço **http://localhost:3000** para **http://localhost:3000/joystick** para acessar o joystick
