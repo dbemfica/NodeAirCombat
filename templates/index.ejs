@@ -6,19 +6,34 @@
     <title>Node Air Combat</title>
     <link rel="stylesheet" href="/css/style.css">
   </head>
+  <style>
+    body{
+      background-color: #eeeeee;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    #container{
+      width: 400px;
+      margin: 80px auto 0 auto;
+    }
+    h1{
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #content{
+      border: 2px solid black;
+      border-radius: 6px;
+      background-color: #ffffff;
+    }
+  </style>
   <body>
-    <canvas id="canvas"></canvas>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/canvas.js"></script>
-    <!-- <script src="/js/joystick.js"></script> -->
-    <script>
-      canvas.addElement('canvas');
-      const socket = io();
-
-      socket.on('frame', (frame) => {
-        canvas.addElements(frame.elements)
-      });
-      canvas.run();
-    </script>
+    
+    <div id="container">
+        <h1>Node Air Combat</h1>
+        <div id="content">
+          <ul>
+            <li><a href="/game">Iniciar Jogo</a></li>
+          </ul>
+        </div>
+    </div>
   </body>
 </html>

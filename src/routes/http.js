@@ -4,6 +4,10 @@ routes.get('/', (req, res) => {
     res.render('index');
 });
 
+routes.get('/game', (req, res) => {
+    res.render('game');
+});
+
 routes.get('/joystick', (req, res) => {
     res.render('joystick');
 });

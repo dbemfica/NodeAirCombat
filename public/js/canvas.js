@@ -4,7 +4,7 @@ const canvas = {
     elements: null,
     addElement: function(id) {
         this.obj = document.getElementById(id);
-        this.obj.width = 800;
+        this.obj.width = 600;
         this.obj.height = 600;
         this.ctx = this.obj.getContext('2d');
         this.elements = [];
