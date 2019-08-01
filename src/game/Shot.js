@@ -3,6 +3,8 @@ const Element = require('./Element');
 class Shot extends Element {
     constructor(properties) {
         super();
+        this.class = 'Shot';
+        this.shooter = properties.shooter;
         this.health = 1;
         this.positionX = properties.positionX;
         this.positionY = properties.positionY;

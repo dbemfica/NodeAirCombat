@@ -19,10 +19,27 @@
       canvas.addElement('canvas');
       const socket = io();
 
+      var health = 100;
+      var score = 0;
+
       socket.on('frame', (frame) => {
         canvas.addElements(frame.elements)
       });
       canvas.run();
+
+      setInterval(() => {
+        updateHealth(health);
+        updateScore(score);
+      },250);
+
+      function updateHealth(health) {
+        let domHealth = document.getElementById('health');
+        domHealth.innerHTML = "Vida: "+health+"%";
+      }
+      function updateScore(score) {
+        let domScore = document.getElementById('score');
+        domScore.innerHTML = "Pontos: "+score;
+      }
     </script>
   </body>
 </html>

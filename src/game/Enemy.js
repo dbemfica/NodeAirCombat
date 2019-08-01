@@ -4,6 +4,7 @@ const Shot = require('./Shot');
 class Enemy extends Element {
     constructor(properties) {
         super();
+        this.class = 'Enemy';
         this.health = 20;
         this.width = 50;
         this.height = 50;
@@ -36,9 +37,10 @@ class Enemy extends Element {
         this.health -= element.damage;
     }
 
-    fire() {
+    fire(i) {
         if (this.frame % 200 === 0) {
             const shot = new Shot({
+                shooter: i,
                 positionX: (this.positionX + this.width / 2),
                 positionY: this.positionY + this.height,
                 lenght: this.shot.lenght,

@@ -1,7 +1,7 @@
 const Enemy = require('./Enemy');
 
 class Game {
-    constructor(io){
+    constructor(){
         this.frame = 0;
         this.elements = [];
     }
@@ -20,12 +20,16 @@ class Game {
             }
         }
         this.colision();
-        this.removeElement();
+        this.removeElements();
         this.addEnemy();
         this.enemyFire();
     }
 
-    removeElement() {
+    removeElement(i) {
+        this.elements.splice(i, 1);
+    }
+
+    removeElements() {
         if (this.elements.length > 0) {
             for (let i = 0; i < this.elements.length; i++) {
                 if (this.elements[i].health <= 0) {
@@ -61,9 +65,12 @@ class Game {
                     let e2x2 = e2.positionX+e2.width;
                     let e2y1 = e2.positionY;
                     let e2y2 = e2.positionY+e2.height;
-                    
+
                     if (e1x2 >= e2x1 && e1y2 >= e2y1 && e1x1 <= e2x2 && e1y2 >= e2y1 && e1x2 >= e2x1 && e1y1 <= e2y2 && e1x1 <= e2x2 && e1y1 <= e2y2) {
                         e1.colision(e2);
+                        if (e1.class === 'Shot' && e1.shooter !== undefined) {
+                            this.elements[e1.shooter].addScore(1);
+                        }
                         continue;
                     }
                 }
@@ -73,8 +80,8 @@ class Game {
 
     addEnemy() {
         if (this.frame % 300 === 0) {
-            this.elements[this.elements.length] = new Enemy({positionX: Math.random() * (800 - 0) + 0});
-            console.log(this.elements[1] instanceof Enemy);
+            const enemy = new Enemy({positionX: Math.random() * (600 - 0) + 0});
+            this.addElement(enemy);
         }
     }
 
@@ -86,7 +93,7 @@ class Game {
                     fire = this.elements[i].fire();
                 }
                 if (fire !== null) {
-                    this.elements[this.elements.length] = fire;
+                    this.addElement(fire);
                 }
             }
         }

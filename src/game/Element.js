@@ -5,6 +5,7 @@ class Element {
         this.uuid = uuidv4();
         this.health = 0;
         this.frame = 0;
+        this.class = 'Element';
     }
 
     update(){};

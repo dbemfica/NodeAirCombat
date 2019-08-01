@@ -4,8 +4,10 @@ const Shot = require('./Shot');
 class Player extends Element {
     constructor() {
         super();
+        this.class = 'Player';
         this.socket = null;
         this.health = 100;
+        this.score = 0;
         this.width = 50;
         this.height = 50;
         this.positionX = 400;
@@ -51,8 +53,9 @@ class Player extends Element {
         }
     }
 
-    fire() {
+    fire(i) {
         const shot = new Shot({
+            shooter: i,
             positionX: (this.positionX + this.width / 2),
             positionY: this.positionY,
             lenght: this.shot.lenght,
@@ -69,6 +72,10 @@ class Player extends Element {
 
     sufferDamage(element) {
         this.health -= element.damage;
+    }
+
+    addScore(score) {
+        this.score += score;
     }
 }
 
