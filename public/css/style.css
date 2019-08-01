@@ -10,7 +10,7 @@ body{
 }
 #container{
     width: 600px;
-    height: 600px;
+    height: 800px;
     margin: 60px auto 0 auto;
     overflow: hidden;
 }
