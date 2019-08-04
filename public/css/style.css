@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #eeeeee;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#container{
+    width: 600px;
+    height: 800px;
+    margin: 60px auto 0 auto;
+    overflow: hidden;
+}
+#health{
+    float: left;
+}
+#score{
+    float: right;
+}
+#canvas{
+    border: 1px solid #000;
+    width: 600px;
+    height: 600px;
+}
