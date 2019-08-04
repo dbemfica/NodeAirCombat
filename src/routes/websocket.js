@@ -3,37 +3,40 @@ const Player = require('../game/Player');
 function routes({ io, Game }) {
     io.of('joystick').on('connection', (socket) => {
 
-        let player = new Player;
-        socket.index = Game.addElement(player);
-        console.log(socket.index);
+        const player = new Player;
+        player.socket = socket.id;
+        Game.addElement(player);
 
         socket.on('move_left', () => {
-            console.log(socket.index);
-            Game.elements[socket.index].moveLeft();
-        })
+            const element = Game.findPlayer(socket.id);
+            element.moveLeft();
+        });
+
         socket.on('move_right', () => {
-            console.log(socket.index);
-            Game.elements[socket.index].moveRight();
-        })
+            const element = Game.findPlayer(socket.id);
+            element.moveRight();
+        });
 
         socket.on('move_up', () => {
-            console.log(socket.index);
-            Game.elements[socket.index].moveUp();
-        })
+            const element = Game.findPlayer(socket.id);
+            element.moveUp();
+        });
 
         socket.on('move_down', () => {
-            console.log(socket.index);
-            Game.elements[socket.index].moveDown();
-        })
+            const element = Game.findPlayer(socket.id);
+            element.moveDown();
+        });
 
         socket.on('fire', () => {
-            const fire = Game.elements[socket.index].fire(socket.index);
+            const element = Game.findPlayer(socket.id);
+            const fire = element.fire(element);
             Game.addElement(fire);
-        })
+        });
 
         socket.on('disconnect', () => {
-            Game.removeElement(socket.index);
-          });
+            const element = Game.findPlayer(socket.id);
+            Game.removeElement(element);
+        });
     });
 }
 

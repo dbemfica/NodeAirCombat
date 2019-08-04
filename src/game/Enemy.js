@@ -37,10 +37,10 @@ class Enemy extends Element {
         this.health -= element.damage;
     }
 
-    fire(i) {
+    fire(e) {
         if (this.frame % 200 === 0) {
             const shot = new Shot({
-                shooter: i,
+                shooter: e,
                 positionX: (this.positionX + this.width / 2),
                 positionY: this.positionY + this.height,
                 lenght: this.shot.lenght,

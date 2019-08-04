@@ -69,7 +69,7 @@ class Game {
                     if (e1x2 >= e2x1 && e1y2 >= e2y1 && e1x1 <= e2x2 && e1y2 >= e2y1 && e1x2 >= e2x1 && e1y1 <= e2y2 && e1x1 <= e2x2 && e1y1 <= e2y2) {
                         e1.colision(e2);
                         if (e1.class === 'Shot' && e1.shooter !== undefined) {
-                            this.elements[e1.shooter].addScore(1);
+                            e1.shooter.addScore(1);
                         }
                         continue;
                     }
@@ -94,6 +94,19 @@ class Game {
                 }
                 if (fire !== null) {
                     this.addElement(fire);
+                }
+            }
+        }
+    }
+
+    findPlayer(socket) {
+        if (this.elements.length > 0) {
+            for (let i = 0; i < this.elements.length; i++) {
+                if (this.elements[i].socket === undefined) {
+                    continue;
+                }
+                if (this.elements[i].socket === socket) {
+                    return this.elements[i];
                 }
             }
         }

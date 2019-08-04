@@ -53,9 +53,9 @@ class Player extends Element {
         }
     }
 
-    fire(i) {
+    fire(e) {
         const shot = new Shot({
-            shooter: i,
+            shooter: e,
             positionX: (this.positionX + this.width / 2),
             positionY: this.positionY,
             lenght: this.shot.lenght,
