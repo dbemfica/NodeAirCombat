@@ -1,45 +1,47 @@
 <!doctype html>
 <html lang="pt-Br">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Node Air Combat</title>
     <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
+</head>
+<body>
     <div id="container">
-      <p id="health">Vida: 100%</p>
-      <p id="score">Pontos: 0</p>
-      <canvas id="canvas"></canvas>
-      <p style="text-align: center;">Acesse http://localhost:3000/joystick</p>
+        <h1><img src="/img/logo.png"></h1>
+        <p id="health">Vida: 100%</p>
+        <p id="score">Pontos: 0</p>
+        <canvas id="canvas"></canvas>
+        <p style="text-align: center;">Acesse http://localhost:3000/joystick</p>
     </div>
+    <img id="player" src="img/player.png" style="display: none;">
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/canvas.js"></script>
     <script>
-      canvas.addElement('canvas');
-      const socket = io();
+        canvas.addElement('canvas');
+        const socket = io();
 
-      var health = 100;
-      var score = 0;
+        var health = 100;
+        var score = 0;
 
-      socket.on('frame', (frame) => {
-        canvas.addElements(frame.elements)
-      });
-      canvas.run();
+        socket.on('frame', (frame) => {
+            canvas.addElements(frame.elements)
+        });
+        canvas.run();
 
-      setInterval(() => {
-        updateHealth(health);
-        updateScore(score);
-      },250);
+        setInterval(() => {
+            updateHealth(health);
+            updateScore(score);
+        },250);
 
-      function updateHealth(health) {
-        let domHealth = document.getElementById('health');
-        domHealth.innerHTML = "Vida: "+health+"%";
-      }
-      function updateScore(score) {
-        let domScore = document.getElementById('score');
-        domScore.innerHTML = "Pontos: "+score;
-      }
+        function updateHealth(health) {
+            let domHealth = document.getElementById('health');
+            domHealth.innerHTML = "Vida: "+health+"%";
+        }
+        function updateScore(score) {
+            let domScore = document.getElementById('score');
+            domScore.innerHTML = "Pontos: "+score;
+        }
     </script>
-  </body>
+</body>
 </html>

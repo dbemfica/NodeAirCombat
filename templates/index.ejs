@@ -8,7 +8,10 @@
   </head>
   <style>
     body{
-      background-color: #eeeeee;
+      background: url('/img/background_gui.png');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
       font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
     #container{
@@ -20,20 +23,32 @@
       margin-bottom: 20px;
     }
     #content{
-      border: 2px solid black;
-      border-radius: 6px;
-      background-color: #ffffff;
+      border: 1px solid black;
+      border-radius: 4px;
+      padding: 10px;
+      background-color: #eeeeee;
+    }
+    ul{
+        list-style: none;
+    }
+    li{
+        list-style: none;
+    }
+    li a{
+        font-size: 24px;
+        color: #036429;
+        text-decoration: none;
     }
   </style>
   <body>
-    
     <div id="container">
-        <h1>Node Air Combat</h1>
+        <h1><img src="/img/logo.png"></h1>
         <div id="content">
           <ul>
             <li><a href="/game">Iniciar Jogo</a></li>
           </ul>
         </div>
+        <p style="text-align: center; font-size: 11px; margin-top: 2px;">Desenvolvido por Diogo Bemfica</p>
     </div>
   </body>
 </html>
