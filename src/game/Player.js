@@ -1,5 +1,7 @@
+const path = require('path');
 const Element = require('./Element');
 const Shot = require('./Shot');
+const Sprite = require('../tools/Sprite');
 
 class Player extends Element {
     constructor() {
@@ -13,7 +15,13 @@ class Player extends Element {
         this.positionX = 400;
         this.positionY = 400;
         this.speed = 8;
-        this.type = 'rect';
+
+        this.type = 'image';
+        this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 3);
+        this.image = this.sprite.getFrame(1);
+        this.image.dx = this.positionX;
+        this.image.dy = this.positionY;
+
         this.color = '#ff4e4e';
 
         this.shot = {};
@@ -28,6 +36,9 @@ class Player extends Element {
         if (this.positionX <= 0) {
             this.positionX = 0;
         }
+        this.image = this.sprite.getFrame(2);
+        this.image.dx = this.positionX;
+        this.image.dy = this.positionY;
     }
 
     moveRight() {
@@ -36,6 +47,9 @@ class Player extends Element {
         if (this.positionX >= CANVAS_WIDTH - this.width) {
             this.positionX = CANVAS_WIDTH - this.width;
         }
+        this.image = this.sprite.getFrame(3);
+        this.image.dx = this.positionX;
+        this.image.dy = this.positionY;
     }
 
     moveUp() {
