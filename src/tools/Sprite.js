@@ -17,7 +17,7 @@ class Sprite {
         let frameWidth = this.width / this.nFrames;
         for (let i = 1; i <= this.nFrames; i++) {
             let frame = {}
-            frame.sx = parseInt(frameWidth*i);
+            frame.sx = parseInt((frameWidth*i)-frameWidth);
             frame.sy = 0;
             frame.sWidth = frameWidth;
             frame.sHeight = this.height;

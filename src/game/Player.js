@@ -19,8 +19,6 @@ class Player extends Element {
         this.type = 'image';
         this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 3);
         this.image = this.sprite.getFrame(1);
-        this.image.dx = this.positionX;
-        this.image.dy = this.positionY;
 
         this.color = '#ff4e4e';
 
@@ -29,6 +27,8 @@ class Player extends Element {
         this.shot.speed = 8;
         this.shot.color = '#0000ff';
         this.damage = 10;
+
+        this.time = null;
     }
 
     moveLeft() {
@@ -36,9 +36,10 @@ class Player extends Element {
         if (this.positionX <= 0) {
             this.positionX = 0;
         }
-        this.image = this.sprite.getFrame(2);
-        this.image.dx = this.positionX;
-        this.image.dy = this.positionY;
+        this.image = this.sprite.getFrame(3);
+        setTimeout(() => {
+            this.image = this.sprite.getFrame(1);
+        }, 100);
     }
 
     moveRight() {
@@ -47,9 +48,10 @@ class Player extends Element {
         if (this.positionX >= CANVAS_WIDTH - this.width) {
             this.positionX = CANVAS_WIDTH - this.width;
         }
-        this.image = this.sprite.getFrame(3);
-        this.image.dx = this.positionX;
-        this.image.dy = this.positionY;
+        this.image = this.sprite.getFrame(2);
+        setTimeout(() => {
+            this.image = this.sprite.getFrame(1);
+        }, 100);
     }
 
     moveUp() {
