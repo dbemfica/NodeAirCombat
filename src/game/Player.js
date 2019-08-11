@@ -20,12 +20,10 @@ class Player extends Element {
         this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 3);
         this.image = this.sprite.getFrame(1);
 
-        this.color = '#ff4e4e';
-
         this.shot = {};
-        this.shot.lenght = 5;
+        this.shot.lenght = 4;
         this.shot.speed = 8;
-        this.shot.color = '#0000ff';
+        this.shot.color = '#00006f';
         this.damage = 10;
     }
 

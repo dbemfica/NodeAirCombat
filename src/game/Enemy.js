@@ -13,16 +13,15 @@ class Enemy extends Element {
         this.positionX = properties.positionX;
         this.positionY = -50;
         this.speed = 2;
-        this.color = '#00ff00';
 
         this.type = 'image';
         this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'enemy.png'), 3);
         this.image = this.sprite.getFrame(1);
 
         this.shot = {};
-        this.shot.lenght = 5;
+        this.shot.lenght = 4;
         this.shot.speed = 8;
-        this.shot.color = '#ff0000';
+        this.shot.color = '#8e0000';
         this.damage = 10;
         this.speedFire = 1;
     }
