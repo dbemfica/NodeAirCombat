@@ -1,9 +1,26 @@
+const path = require('path');
+const imageSize = require('image-size');
 const Enemy = require('./Enemy');
 
 class Game {
     constructor(){
         this.frame = 0;
         this.elements = [];
+
+        this.imgBg = imageSize(path.resolve(__dirname, '..', '..', 'public', 'img', 'map.png'));
+
+        this.backgroundX = 0;
+        this.backgroundY = (this.imgBg.height - 600)*-1;
+        this.background = [
+            {
+                x: 0,
+                y: (this.imgBg.height - 600) * -1
+            },
+            {
+                x: 0,
+                y: ((this.imgBg.height + this.imgBg.height) - 600) * -1
+            }
+        ]
     }
 
     addElement(element) {
@@ -19,10 +36,24 @@ class Game {
                 this.elements[i].update();
             }
         }
+        this.backgroundUpdate();
         this.colision();
         this.removeElements();
         this.addEnemy();
         this.enemyFire();
+    }
+
+    backgroundUpdate() {
+        if (this.frame %2 === 0) {
+            this.background[0].y += 1;
+            this.background[1].y += 1;
+        }
+        if (this.background[0].y > this.imgBg.height) {
+            this.background[0].y = (this.imgBg.height - 600) * -1;
+        }
+        if (this.background[1].y > (this.imgBg.height * 2)) {
+            this.background[1].y = ((this.imgBg.height + this.imgBg.height) - 600) * -1;
+        }
     }
 
     removeElement(i) {

@@ -18,10 +18,13 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/canvas.js"></script>
     <script>
-
+        var imageBackgroud = null;
         var imgPlayer = null;
+        var imgEnemy = null;
         async function main() {
-            imgPlayer = await loadImages();
+            imageBackgroud = await loadImageBackgroud();
+            imgPlayer = await loadImagePlayer();
+            imgEnemy = await loadImageEnemy();
             canvas.addElement('canvas');
             const socket = io();
 
@@ -29,7 +32,18 @@
             var score = 0;
 
             socket.on('frame', (frame) => {
-                canvas.addElements(frame.elements)
+                let background = [
+                    {
+                        x: frame.background[0].x,
+                        y: frame.background[0].y
+                    },
+                    {
+                        x: frame.background[1].x,
+                        y: frame.background[1].y
+                    }
+                ];
+                canvas.loadBackground(background);
+                canvas.addElements(frame.elements);
             });
             canvas.run();
 
@@ -41,7 +55,17 @@
 
         main();
 
-        function loadImages() {
+        function loadImageBackgroud() {
+            return new Promise((resolve) => {
+                imageBackgroud = new Image();
+                imageBackgroud.src = "http://localhost:3000/img/map.png"
+                imageBackgroud.onload = () => {
+                    resolve(imageBackgroud)
+                }
+            })
+        }
+
+        function loadImagePlayer() {
             return new Promise((resolve) => {
                 imgPlayer = new Image();
                 imgPlayer.src = "http://localhost:3000/img/player.png"
@@ -51,6 +75,15 @@
             })
         }
 
+        function loadImageEnemy() {
+            return new Promise((resolve) => {
+                imgEnemy = new Image();
+                imgEnemy.src = "http://localhost:3000/img/enemy.png"
+                imgEnemy.onload = () => {
+                    resolve(imgEnemy)
+                }
+            })
+        }
 
         function updateHealth(health) {
             let domHealth = document.getElementById('health');

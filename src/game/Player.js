@@ -27,8 +27,6 @@ class Player extends Element {
         this.shot.speed = 8;
         this.shot.color = '#0000ff';
         this.damage = 10;
-
-        this.time = null;
     }
 
     moveLeft() {
