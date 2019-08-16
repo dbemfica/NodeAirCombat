@@ -7,26 +7,46 @@ function routes({ io, Game }) {
         player.socket = socket.id;
         Game.addElement(player);
 
-        socket.on('move_left', () => {
-            const element = Game.findPlayer(socket.id);
-            element.moveLeft();
-        });
-
-        socket.on('move_right', () => {
-            const element = Game.findPlayer(socket.id);
-            element.moveRight();
-        });
-
-        socket.on('move_up', () => {
+        socket.on('moveUp', () => {
             const element = Game.findPlayer(socket.id);
             element.moveUp();
         });
 
-        socket.on('move_down', () => {
+        socket.on('moveDown', () => {
             const element = Game.findPlayer(socket.id);
             element.moveDown();
         });
 
+        socket.on('moveLeft', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveLeft();
+        });
+
+        socket.on('moveRight', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveRight();
+        });
+
+        socket.on('moveLeftUp', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveLeftUp();
+        });
+
+        socket.on('moveRightUp', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveRightUp();
+        });
+
+        socket.on('moveLeftDown', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveLeftDown();
+        });
+
+        socket.on('moveRightDown', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveRightDown();
+        });
+        
         socket.on('fire', () => {
             const element = Game.findPlayer(socket.id);
             const fire = element.fire(element);

@@ -1,0 +1,76 @@
+body {
+    height: 100%;
+    background-color: #eeeeee;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#container{
+    width: 90%;
+    margin: 16px auto 0 auto;
+}
+
+#logo{
+    text-align: center;
+    margin-bottom: 20px;
+}
+#logo img{
+    height: 40px;
+}
+
+#container_joystick{
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+#container_button{
+    float: right;
+    width: 50%;
+    text-align: center;
+}
+.butn {
+    background: #3498db;
+    background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+    background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+    background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+    background-image: -o-linear-gradient(top, #3498db, #2980b9);
+    background-image: linear-gradient(to bottom, #3498db, #2980b9);
+    -webkit-border-radius: 27;
+    -moz-border-radius: 27;
+    border-radius: 60px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 50px;
+    border: solid #045080 2px;
+    text-decoration: none;
+  }
+  
+  .butn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+  }
+
+#joystick {
+    height: 200px;
+    width: 200px;
+    border-radius: 300px;
+    -moz-border-radius: 300px;
+    -webkit-border-radius: 300px;
+    text-align: center;
+    background-color: #80d5ff;
+    font: 24px/300px Helvetica, Arial, sans-serif;
+    cursor: all-scroll;
+    user-select: none;
+    z-index: -100;
+}

@@ -1,156 +1,152 @@
 <!doctype html>
 <html lang="pt-Br">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="/manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Joystick</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            outline: 0;
-            box-sizing: border-box;
-        }
-        body {
-            padding: 25px;
-            background-color: #eeeeee;
-            font: 14px Arial, Helvetica, sans-serif;
-            -webkit-font-smoothing: antialiased !important;
-        }
-        #container {
-            margin: 0 auto;
-            width: 90%;
-        }
-        h1 {
-            text-align: center;
-            margin-top: 0;
-            margin-bottom: 14px;
-        }
-        #controlers{
-            overflow: auto;
-        }
-        #controlers_direction{
-            width: 50%;
-            float: left;
-        }
-        #controlers_buttons{
-            width: 50%;
-            text-align: center;
-            float: right;
-        }
-        #controlers_direction_up{
-            width: 50px;
-            padding: 20px;
-            margin-bottom: 10px;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 2px -2px 0px 0px #000000;
-            background:linear-gradient(to bottom, #555555 5%, #222222 100%);
-            border:1px solid #000000;
-            cursor: pointer;
-        }
-        #controlers_direction_left{
-            width: 50px;
-            padding: 20px;
-            margin-right: 18px;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 10px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 10px;
-            box-shadow: 2px -2px 0px 0px #000000;
-            background:linear-gradient(to bottom, #555555 5%, #222222 100%);
-            border:1px solid #000000;
-            cursor: pointer;
-        }
-        #controlers_direction_right{
-            width: 50px;
-            padding: 20px;
-            margin-left: 18px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 2px;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 2px;
-            box-shadow: 2px -2px 0px 0px #000000;
-            background:linear-gradient(to bottom, #555555 5%, #222222 100%);
-            border:1px solid #000000;
-            cursor: pointer;
-        }
-        #controlers_direction_down{
-            width: 50px;
-            padding: 20px;
-            margin-top: 10px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-            box-shadow: 2px -2px 0px 0px #000000;
-            background:linear-gradient(to bottom, #222222 5%, #555555 100%);
-            border:1px solid #000000;
-            cursor: pointer;
-        }
-        #button_fire{
-            margin: 30px;
-            padding: 40px;
-            border-radius: 60px;
-            box-shadow: 2px -2px 0px 0px #000000;
-            background:linear-gradient(to bottom, #ff0000 5%, #ff5555 100%);
-            border:1px solid #000000;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/joystick.css">
   </head>
   <body>
     <div id="container">
-        <h1>Node Air Combat</h1>
-        <div id="controlers">
-            <div id="controlers_direction">
-                <div style="width: 100%; overflow: auto; text-align: center;">
-                    <button id="controlers_direction_up">&nbsp;</button>
-                </div>
-                <div style="width: 50%; float: left; text-align: right;">
-                    <button id="controlers_direction_left">&nbsp;</button>
-                </div>
-                <div style="width: 50%; float: right; text-align: left;">
-                    <button id="controlers_direction_right">&nbsp;</button>
-                </div>
-                <div style="width: 100%; overflow: auto; text-align: center;">
-                    <button id="controlers_direction_down">&nbsp;</button>
-                </div>
-            </div>
-            <div id="controlers_buttons">
-                <button id="button_fire">&nbsp;</button>
-            </div>
+        <div id="logo"><img src="/img/logo.png"></div>
+        <div id="container_joystick">
+            <canvas id="joystick" height="200" width="200"></canvas>
+        </div>
+        <div id="container_button">
+            <button class="butn"></button>
         </div>
     </div>
+    
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/createjs.min.js"></script>
+    <script src="/js/hammer.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        window.scrollTo(0,1);
+    const socket = io('/joystick');
+    var coords = {x: null, y: null, direction: null};
+    $(document).ready(function(){
+        let xCenter = 100;
+        let yCenter = 100;
+        let stage = new createjs.Stage('joystick');
 
-        const socket = io('/joystick');
-        const controllerDirectionUp = document.querySelector("#controlers_direction_up");
-        const controllerDirectionLeft = document.querySelector("#controlers_direction_left");
-        const controllerDirectionRight = document.querySelector("#controlers_direction_right");
-        const controllerDirectionDown = document.querySelector("#controlers_direction_down");
-        const buttonFire = document.querySelector("#button_fire");
-        controllerDirectionUp.addEventListener("click", () => {
-            socket.emit('move_up', true);
+        let psp = new createjs.Shape();
+        psp.graphics.beginFill('#333333').drawCircle(xCenter, yCenter, 50);
+
+        psp.alpha = 0.25;
+
+        stage.addChild(psp);
+        createjs.Ticker.framerate = 60;
+        createjs.Ticker.addEventListener('tick', stage);
+        stage.update();
+
+        let myElement = $('#joystick')[0];
+        let mc = new Hammer(myElement);
+        let time = null;
+
+        mc.on("panstart", function(ev) {
+            console.log('panstart');
+            var pos = $('#joystick').position();
+            xCenter = psp.x;
+            yCenter = psp.y;
+            psp.alpha = 0.5;
+            stage.update();
+            if (time === null) {
+                time = setInterval(() => {
+                    move();
+                }, 500);
+            }
         });
-        controllerDirectionLeft.addEventListener("click", () => {
-            socket.emit('move_left', true);
+
+        mc.on("panmove", function(ev) {
+            let pos = $('#joystick').position();
+            coords = calculateCoords(ev.angle, ev.distance);
+            psp.x = coords.x;
+            psp.y = coords.y;
+            psp.alpha = 0.5;
+            stage.update();
         });
-        controllerDirectionRight.addEventListener("click", () => {
-            socket.emit('move_right', true);
+
+        mc.on("panend", function(ev) {
+            console.log('panend');
+            if (time !== null) {
+                clearInterval(time);
+            }
+            psp.alpha = 0.25;
+            createjs.Tween.get(psp).to({x:xCenter,y:yCenter},750,createjs.Ease.elasticOut);
         });
-        controllerDirectionDown.addEventListener("click", () => {
-            socket.emit('move_down', true);
-        });
-        buttonFire.addEventListener("click", () => {
+
+        $(".butn").click(() => {
             socket.emit('fire', true);
         });
+    });
+
+    function calculateCoords(angle, distance) {
+        let coords = {};
+        distance = Math.min(distance, 100);  
+        let rads = (angle * Math.PI) / 180.0;
+
+        coords.x = distance * Math.cos(rads);
+        coords.y = distance * Math.sin(rads);
+        
+        if (coords.y < -15 && (coords.x > -25 && coords.x < 25)) {
+            coords.direction = 'up';    
+        }
+        if (coords.y > 15 && (coords.x > -25 && coords.x < 25)) {
+            coords.direction = 'down';    
+        }
+        if (coords.x < -15 && (coords.y > -25 && coords.y < 25)) {
+            coords.direction = 'left';    
+        }
+        if (coords.x > 15 && (coords.y > -25 && coords.y < 25)) {
+            coords.direction = 'right';    
+        }
+        if (coords.x < -15 && coords.y < -15) {
+            coords.direction = 'leftUp';    
+        }
+        if (coords.x > 15 && coords.y < -15) {
+            coords.direction = 'rightUp';    
+        }
+        if (coords.x < -15 && coords.y > 15) {
+            coords.direction = 'leftDown';    
+        }
+        if (coords.x > 15 && coords.y > 15) {
+            coords.direction = 'rightDown';    
+        }
+        return coords;
+    }
+
+    function move() {
+        let direction = coords.direction;
+        console.log(direction)
+        if (direction == null) {
+            return false;
+        }
+        if (direction === 'up') {
+            socket.emit('moveUp', true);
+        }
+        if (direction === 'down') {
+            socket.emit('moveDown', true);
+        }
+        if (direction === 'left') {
+            socket.emit('moveLeft', true);
+        }
+        if (direction === 'right') {
+            socket.emit('moveRight', true);
+        }
+        if (direction === 'leftUp') {
+            socket.emit('moveLeftUp', true);
+        }
+        if (direction === 'rightUp') {
+            socket.emit('moveRightUp', true);
+        }
+        if (direction === 'leftDown') {
+            socket.emit('moveLeftDown', true);
+        }
+        if (direction === 'rightDown') {
+            socket.emit('moveRightDown', true);
+        }
+    }
     </script>
   </body>
 </html>
