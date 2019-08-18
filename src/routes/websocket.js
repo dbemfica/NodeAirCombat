@@ -46,7 +46,12 @@ function routes({ io, Game }) {
             const element = Game.findPlayer(socket.id);
             element.moveRightDown();
         });
-        
+
+        socket.on('moveStop', () => {
+            const element = Game.findPlayer(socket.id);
+            element.moveStop();
+        });
+
         socket.on('fire', () => {
             const element = Game.findPlayer(socket.id);
             const fire = element.fire(element);

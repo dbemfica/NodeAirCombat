@@ -14,12 +14,11 @@ class Player extends Element {
         this.height = 50;
         this.positionX = 400;
         this.positionY = 400;
-        this.speed = 8;
+        this.speed = 5;
 
         this.type = 'image';
         this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 3);
         this.image = this.sprite.getFrame(1);
-        this.spriteAnimationTime = null;
 
         this.shot = {};
         this.shot.lenght = 4;
@@ -44,31 +43,25 @@ class Player extends Element {
     }
 
     moveLeft() {
+        this.image = this.sprite.getFrame(3);
         this.positionX -= this.speed;
         if (this.positionX <= 0) {
             this.positionX = 0;
         }
-        this.image = this.sprite.getFrame(3);
-        //clearInterval(this.spriteAnimationTime);
-        //this.spriteAnimationTime = setTimeout(() => {
-        //    this.image = this.sprite.getFrame(1);
-        //}, 100);
+
     }
 
     moveRight() {
+        this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
         const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
         if (this.positionX >= CANVAS_WIDTH - this.width) {
             this.positionX = CANVAS_WIDTH - this.width;
         }
-        this.image = this.sprite.getFrame(2);
-        //clearInterval(this.spriteAnimationTime);
-        //this.spriteAnimationTime = setTimeout(() => {
-        //    this.image = this.sprite.getFrame(1);
-        //}, 100);
     }
 
     moveLeftUp() {
+        this.image = this.sprite.getFrame(3);
         this.positionX -= this.speed;
         if (this.positionX <= 0) {
             this.positionX = 0;
@@ -80,6 +73,7 @@ class Player extends Element {
     }
 
     moveRightUp() {
+        this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
         const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
         if (this.positionX >= CANVAS_WIDTH - this.width) {
@@ -92,18 +86,20 @@ class Player extends Element {
     }
 
     moveLeftDown() {
+        this.image = this.sprite.getFrame(3);
         this.positionX -= this.speed;
         if (this.positionX <= 0) {
             this.positionX = 0;
         }
         this.image = this.sprite.getFrame(3);
-        this.positionY -= this.speed;
+        this.positionY += this.speed;
         if (this.positionY <= 0) {
             this.positionY = 0;
         }
     }
 
     moveRightDown() {
+        this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
         const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
         if (this.positionX >= CANVAS_WIDTH - this.width) {
@@ -114,6 +110,10 @@ class Player extends Element {
         if (this.positionY >= CANVAS_HEIGHT - this.height) {
             this.positionY = CANVAS_HEIGHT - this.height;
         }
+    }
+
+    moveStop() {
+        this.image = this.sprite.getFrame(1);
     }
 
     fire(e) {

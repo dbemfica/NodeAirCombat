@@ -14,10 +14,9 @@
             <canvas id="joystick" height="200" width="200"></canvas>
         </div>
         <div id="container_button">
-            <button class="butn"></button>
+            <button id="btnFire"></button>
         </div>
     </div>
-    
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/createjs.min.js"></script>
     <script src="/js/hammer.min.js"></script>
@@ -45,7 +44,6 @@
         let time = null;
 
         mc.on("panstart", function(ev) {
-            console.log('panstart');
             var pos = $('#joystick').position();
             xCenter = psp.x;
             yCenter = psp.y;
@@ -54,7 +52,7 @@
             if (time === null) {
                 time = setInterval(() => {
                     move();
-                }, 500);
+                }, 30);
             }
         });
 
@@ -68,57 +66,58 @@
         });
 
         mc.on("panend", function(ev) {
-            console.log('panend');
             if (time !== null) {
                 clearInterval(time);
+                time = null;
             }
             psp.alpha = 0.25;
             createjs.Tween.get(psp).to({x:xCenter,y:yCenter},750,createjs.Ease.elasticOut);
+            socket.emit('moveStop', true);
         });
 
-        $(".butn").click(() => {
+        let btnFire = document.getElementById('btnFire');
+        btnFire.addEventListener('touchstart', function(event) {
             socket.emit('fire', true);
-        });
+        }, false);
     });
 
     function calculateCoords(angle, distance) {
         let coords = {};
-        distance = Math.min(distance, 100);  
+        distance = Math.min(distance, 100);
         let rads = (angle * Math.PI) / 180.0;
 
         coords.x = distance * Math.cos(rads);
         coords.y = distance * Math.sin(rads);
-        
+
         if (coords.y < -15 && (coords.x > -25 && coords.x < 25)) {
-            coords.direction = 'up';    
+            coords.direction = 'up';
         }
         if (coords.y > 15 && (coords.x > -25 && coords.x < 25)) {
-            coords.direction = 'down';    
+            coords.direction = 'down';
         }
         if (coords.x < -15 && (coords.y > -25 && coords.y < 25)) {
-            coords.direction = 'left';    
+            coords.direction = 'left';
         }
         if (coords.x > 15 && (coords.y > -25 && coords.y < 25)) {
-            coords.direction = 'right';    
+            coords.direction = 'right';
         }
         if (coords.x < -15 && coords.y < -15) {
-            coords.direction = 'leftUp';    
+            coords.direction = 'leftUp';
         }
         if (coords.x > 15 && coords.y < -15) {
-            coords.direction = 'rightUp';    
+            coords.direction = 'rightUp';
         }
         if (coords.x < -15 && coords.y > 15) {
-            coords.direction = 'leftDown';    
+            coords.direction = 'leftDown';
         }
         if (coords.x > 15 && coords.y > 15) {
-            coords.direction = 'rightDown';    
+            coords.direction = 'rightDown';
         }
         return coords;
     }
 
     function move() {
         let direction = coords.direction;
-        console.log(direction)
         if (direction == null) {
             return false;
         }
