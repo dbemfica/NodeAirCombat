@@ -9,8 +9,6 @@ class Game {
 
         this.imgBg = imageSize(path.resolve(__dirname, '..', '..', 'public', 'img', 'map.png'));
 
-        this.backgroundX = 0;
-        this.backgroundY = (this.imgBg.height - 600)*-1;
         this.background = [
             {
                 x: 0,
@@ -48,11 +46,11 @@ class Game {
             this.background[0].y += 1;
             this.background[1].y += 1;
         }
-        if (this.background[0].y > this.imgBg.height) {
-            this.background[0].y = (this.imgBg.height - 600) * -1;
+        if (this.background[0].y > 600) {
+            this.background[0].y = (this.imgBg.height + (this.imgBg.height - 601)) * -1;
         }
-        if (this.background[1].y > (this.imgBg.height * 2)) {
-            this.background[1].y = ((this.imgBg.height + this.imgBg.height) - 600) * -1;
+        if (this.background[1].y > 600) {
+            this.background[1].y = (this.imgBg.height + (this.imgBg.height - 600)) * -1;
         }
     }
 

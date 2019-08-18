@@ -6,7 +6,7 @@ const canvas = {
         this.obj = document.getElementById(id);
         this.obj.width = 600;
         this.obj.height = 600;
-        this.ctx = this.obj.getContext('2d');
+        this.ctx = this.obj.getContext('2d', { alpha: false });
         this.elements = [];
         this.background = null;
     },
