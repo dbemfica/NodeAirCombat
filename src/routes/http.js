@@ -4,6 +4,14 @@ routes.get('/', (req, res) => {
     res.render('index');
 });
 
+routes.get('/instrucoes', (req, res) => {
+    res.render('instructions');
+});
+
+routes.get('/creditos', (req, res) => {
+    res.render('credits');
+});
+
 routes.get('/game', (req, res) => {
     res.render('game');
 });
