@@ -4,11 +4,11 @@ const Enemy = require('./Enemy');
 
 class Game {
     constructor(){
+        this.playersStatus = [];
         this.frame = 0;
         this.elements = [];
 
         this.imgBg = imageSize(path.resolve(__dirname, '..', '..', 'public', 'img', 'map.png'));
-
         this.background = [
             {
                 x: 0,
@@ -22,6 +22,27 @@ class Game {
     }
 
     addElement(element) {
+        if (element.class == 'Player') {
+            if (this.playersStatus.length === 0) {
+                let status = {
+                    socketId: element.socket,
+                    health: 100,
+                    score: 0
+                }
+                this.playersStatus.push(status);
+            } else {
+                for (let i = 0; i < this.playersStatus.length; i++) {
+                    if (this.playersStatus[i].socketId !== element.socket) {
+                        let status = {
+                            socketId: element.socket,
+                            health: 100,
+                            score: 0
+                        }
+                        this.playersStatus.push(status);
+                    }
+                }
+            }
+        }
         this.elements.push(element);
         return this.elements.length-1;
     }
@@ -39,6 +60,20 @@ class Game {
         this.removeElements();
         this.addEnemy();
         this.enemyFire();
+        this.updatePlayersStatus();
+    }
+
+    updatePlayersStatus() {
+        for (let i = 0; i < this.elements.length; i++) {
+            if (this.elements[i].class === 'Player') {
+                for (let x = 0; x < this.playersStatus.length; x++) {
+                    if (this.playersStatus[x].socketId === this.elements[i].socket) {
+                        this.playersStatus[x].health = this.elements[i].health;
+                        this.playersStatus[x].score = this.elements[i].score;
+                    }
+                }
+            }
+        }
     }
 
     backgroundUpdate() {
@@ -54,8 +89,15 @@ class Game {
         }
     }
 
-    removeElement(i) {
-        this.elements.splice(i, 1);
+    removeElement(element) {
+        if (element.class == 'Player') {
+            for (let i = 0; i < this.playersStatus.length; i++) {
+                if (this.playersStatus[i].socketId !== element.socket) {
+                    this.playersStatus.splice(element, 1);
+                }
+            }
+        }
+        this.elements.splice(element, 1);
     }
 
     removeElements() {

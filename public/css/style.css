@@ -21,12 +21,6 @@ h1{
     margin: 60px auto 0 auto;
     overflow: hidden;
 }
-#health{
-    float: left;
-}
-#score{
-    float: right;
-}
 #canvas{
     border: 1px solid #000;
     width: 600px;

@@ -28,10 +28,6 @@ const canvas = {
 
         if(this.elements.length > 0){
             this.elements.map((e) => {
-                if(e.class === 'Player') {
-                    health = e.health;
-                    score = e.score;
-                }
                 if (e.type === 'rect') {
                     this.ctx.fillStyle = e.color;
                     this.ctx.fillRect(e.positionX, e.positionY, e.width, e.height);

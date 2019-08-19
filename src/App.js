@@ -13,7 +13,7 @@ class App {
         this.io = io(this.server);
         this.routes();
         this.templates();
-        
+
         this.start();
     }
 
@@ -31,7 +31,7 @@ class App {
     start() {
         setInterval(() => {
             this.game.update();
-            this.io.emit('frame', this.game);
+            this.io.emit('game', this.game);
         }, process.env.FRAME_RATE);
     }
 }

@@ -9,8 +9,16 @@
 <body>
     <div id="container">
         <h1><img src="/img/logo.png"></h1>
-        <p id="health">Vida: 100%</p>
-        <p id="score">Pontos: 0</p>
+        <div id="playerStatus">
+            <div id="playerStatus1" style="float: left; text-align: left; display: none;">
+                <p>Vida: 100%</p>
+                <p>Pontos: 0</p>
+            </div>
+            <div id="playerStatus2" style="float: right; text-align: right; display: none;">
+                <p>Vida: 100%</p>
+                <p>Pontos: 0</p>
+            </div>
+        </div>
         <canvas id="canvas"></canvas>
         <p style="text-align: center;">Acesse http://localhost:3000/joystick</p>
     </div>
@@ -21,8 +29,7 @@
         var imageBackgroud = null;
         var imgPlayer = null;
         var imgEnemy = null;
-        var health = 100;
-        var score = 0;
+        var playersStatus = null;
         async function main() {
             imageBackgroud = await loadImageBackgroud();
             imgPlayer = await loadImagePlayer();
@@ -30,28 +37,23 @@
             canvas.addElement('canvas');
             const socket = io();
 
-
-
-            socket.on('frame', (frame) => {
+            socket.on('game', (game) => {
+                playersStatus = game.playersStatus;
+                renderPlayersStatus();
                 let background = [
                     {
-                        x: frame.background[0].x,
-                        y: frame.background[0].y
+                        x: game.background[0].x,
+                        y: game.background[0].y
                     },
                     {
-                        x: frame.background[1].x,
-                        y: frame.background[1].y
+                        x: game.background[1].x,
+                        y: game.background[1].y
                     }
                 ];
                 canvas.loadBackground(background);
-                canvas.addElements(frame.elements);
+                canvas.addElements(game.elements);
             });
             canvas.run();
-
-            setInterval(() => {
-                updateHealth(health);
-                updateScore(score);
-            },250);
         }
 
         main();
@@ -86,13 +88,19 @@
             })
         }
 
-        function updateHealth(health) {
-            let domHealth = document.getElementById('health');
-            domHealth.innerHTML = "Vida: "+health+"%";
-        }
-        function updateScore(score) {
-            let domScore = document.getElementById('score');
-            domScore.innerHTML = "Pontos: "+score;
+        function renderPlayersStatus() {
+            for (let i = 0; i < playersStatus.length; i++) {
+                if (i === 0) {
+                    let div = document.getElementById("playerStatus1");
+                    div.innerHTML = "<p>Vida: " + playersStatus[i].health + "%</p><p>Pontos: " + playersStatus[i].score + "</p>";
+                    div.style.display = "block";
+                }
+                if (i === 1) {
+                    let div = document.getElementById("playerStatus2");
+                    div.innerHTML = "<p>Vida: " + playersStatus[i].health + "%</p><p>Pontos: " + playersStatus[i].score + "</p>";
+                    div.style.display = "block";
+                }
+            }
         }
     </script>
 </body>
