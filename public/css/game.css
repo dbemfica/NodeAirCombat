@@ -26,3 +26,39 @@ h1{
     width: 600px;
     height: 600px;
 }
+.playerStatus{
+    width: 162px;
+    overflow: auto;
+    margin-bottom: 4px;
+}
+.playerStatus .brand{
+    float:left;
+    font-size: 12px;
+    border: 2px solid #333333;
+    border-radius: 6px;
+    padding: 4px;
+    margin-right: 4px;
+}
+.playerStatus .brand span{
+    font-size: 28px;
+}
+.playerStatus .health-bar{
+    float:left;
+    margin-top: 2px;
+    background-color: #999999;
+    border: 2px solid #333333;
+    border-radius: 6px;
+    width: 120px;
+    height: 16px;
+}
+.playerStatus .health{
+    background-image: linear-gradient(to bottom,#c10000, #ff0000);
+    background-color: red;
+    border-radius: 5px;
+    width: 100%;
+    height: 12px;
+}
+.playerStatus .score{
+    padding: 3px 0 0 2px;
+    float: left;
+}

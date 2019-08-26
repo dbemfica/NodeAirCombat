@@ -9,16 +9,16 @@
 <body>
     <div id="container">
         <h1><img src="/img/logo.png"></h1>
-        <div id="playerStatus">
-            <div id="playerStatus1" style="float: left; text-align: left; display: none;">
-                <p>Vida: 100%</p>
-                <p>Pontos: 0</p>
-            </div>
-            <div id="playerStatus2" style="float: right; text-align: right; display: none;">
-                <p>Vida: 100%</p>
-                <p>Pontos: 0</p>
-            </div>
+        <div id="playerStatus1" class="playerStatus" style="float: left; display: none;">
+            <div class="brand"><span>P</span>1</div>
+            <div class="health-bar"><div class="health"></div></div>
+            <div class="score">Ponto: 0</div>
         </div>
+        <div id="playerStatus2" class="playerStatus" style="float: right; display: none;">
+                <div class="brand"><span>P</span>2</div>
+                <div class="health-bar"><div class="health"></div></div>
+                <div class="score">Ponto: 0</div>
+            </div>
         <canvas id="canvas"></canvas>
         <p style="text-align: center;">Acesse http://localhost:3000/joystick</p>
     </div>
@@ -92,12 +92,14 @@
             for (let i = 0; i < playersStatus.length; i++) {
                 if (i === 0) {
                     let div = document.getElementById("playerStatus1");
-                    div.innerHTML = "<p>Vida: " + playersStatus[i].health + "%</p><p>Pontos: " + playersStatus[i].score + "</p>";
+                    div.querySelector(".health").style.width = playersStatus[i].health+"%";
+                    div.querySelector(".score").innerHTML = "Pontos: "+playersStatus[i].score;
                     div.style.display = "block";
                 }
                 if (i === 1) {
                     let div = document.getElementById("playerStatus2");
-                    div.innerHTML = "<p>Vida: " + playersStatus[i].health + "%</p><p>Pontos: " + playersStatus[i].score + "</p>";
+                    div.querySelector(".health").style.width = playersStatus[i].health+"%";
+                    div.querySelector(".score").innerHTML = "Pontos: "+playersStatus[i].score;
                     div.style.display = "block";
                 }
             }
