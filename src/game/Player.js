@@ -17,7 +17,7 @@ class Player extends Element {
         this.speed = 5;
 
         this.type = 'image';
-        this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 3);
+        this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 10);
         this.image = this.sprite.getFrame(1);
 
         this.shot = {};
@@ -134,11 +134,28 @@ class Player extends Element {
     }
 
     sufferDamage(element) {
-        this.health -= element.damage;
+        this.onDead(element);
     }
 
     addScore(score) {
         this.score += score;
+    }
+
+    onDead(element) {
+        let health = this.health - element.damage;
+        if (health <= 0) {
+            let i = 1;
+            let time = setInterval(() => {
+                this.image = this.sprite.getFrame(i+3);
+                i++;
+                if (i > 7) {
+                    this.health -= element.damage;
+                    clearInterval(time);
+                }
+            },30);
+        } else {
+            this.health -= element.damage;
+        }
     }
 }
 
