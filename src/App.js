@@ -6,7 +6,7 @@ const Game = require('./game/Game');
 
 class App {
     constructor() {
-        this.game = Game;
+        this.game = new Game();
         this.express = express();
         this.server = server;
         this.server = server.Server(this.express);
@@ -30,7 +30,9 @@ class App {
 
     start() {
         setInterval(() => {
-            this.game.update();
+            if (this.game.status === 1) {
+                this.game.update();    
+            }
             this.io.emit('game', this.game);
         }, process.env.FRAME_RATE);
     }

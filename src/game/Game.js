@@ -6,6 +6,7 @@ class Game {
     constructor(){
         this.playersStatus = [];
         this.frame = 0;
+        this.status = 0;
         this.elements = [];
 
         this.imgBg = imageSize(path.resolve(__dirname, '..', '..', 'public', 'img', 'map.png'));
@@ -19,6 +20,14 @@ class Game {
                 y: ((this.imgBg.height + this.imgBg.height) - 600) * -1
             }
         ]
+    }
+
+    start() {
+        this.status = 1;
+    }
+
+    pause() {
+        this.status = 0;
     }
 
     addElement(element) {
@@ -184,4 +193,4 @@ class Game {
     }
 }
 
-module.exports = new Game();
+module.exports = Game;

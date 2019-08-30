@@ -7,6 +7,17 @@ function routes({ io, Game }) {
         player.socket = socket.id;
         Game.addElement(player);
 
+        socket.on('startPause', () => {
+            if (Game.status === 0) {
+                console.log('start');
+                Game.start();
+            }
+            if (Game.status === 1) {
+                console.log('pause');
+                Game.pause();
+            }
+        });
+
         socket.on('moveUp', () => {
             const element = Game.findPlayer(socket.id);
             element.moveUp();
