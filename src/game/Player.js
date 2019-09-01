@@ -4,8 +4,9 @@ const Shot = require('./Shot');
 const Sprite = require('../tools/Sprite');
 
 class Player extends Element {
-    constructor() {
+    constructor(config) {
         super();
+        this.config = config;
         this.class = 'Player';
         this.socket = null;
         this.health = 100;
@@ -36,9 +37,9 @@ class Player extends Element {
 
     moveDown() {
         this.positionY += this.speed;
-        const CANVAS_HEIGHT = parseInt(process.env.CANVAS_HEIGHT);
-        if (this.positionY >= CANVAS_HEIGHT - this.height) {
-            this.positionY = CANVAS_HEIGHT - this.height;
+        let canvasHeight = this.config.canvasHeight;
+        if (this.positionY >= canvasHeight - this.height) {
+            this.positionY = canvasHeight - this.height;
         }
     }
 
@@ -54,9 +55,9 @@ class Player extends Element {
     moveRight() {
         this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
-        const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
-        if (this.positionX >= CANVAS_WIDTH - this.width) {
-            this.positionX = CANVAS_WIDTH - this.width;
+        let canvasWidth = this.config.canvasWidth;
+        if (this.positionX >= canvasWidth - this.width) {
+            this.positionX = canvasWidth - this.width;
         }
     }
 
@@ -75,9 +76,9 @@ class Player extends Element {
     moveRightUp() {
         this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
-        const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
-        if (this.positionX >= CANVAS_WIDTH - this.width) {
-            this.positionX = CANVAS_WIDTH - this.width;
+        let canvasWidth = this.config.canvasWidth;
+        if (this.positionX >= canvasWidth - this.width) {
+            this.positionX = canvasWidth - this.width;
         }
         this.positionY -= this.speed;
         if (this.positionY <= 0) {
@@ -93,22 +94,23 @@ class Player extends Element {
         }
         this.image = this.sprite.getFrame(3);
         this.positionY += this.speed;
-        if (this.positionY <= 0) {
-            this.positionY = 0;
+        let canvasHeight = this.config.canvasHeight;
+        if (this.positionY >= canvasHeight - this.height) {
+            this.positionY = canvasHeight - this.height;
         }
     }
 
     moveRightDown() {
         this.image = this.sprite.getFrame(2);
         this.positionX += this.speed;
-        const CANVAS_WIDTH = parseInt(process.env.CANVAS_WIDTH);
-        if (this.positionX >= CANVAS_WIDTH - this.width) {
-            this.positionX = CANVAS_WIDTH - this.width;
+        let canvasWidth = this.config.canvasWidth;
+        if (this.positionX >= canvasWidth - this.width) {
+            this.positionX = canvasWidth - this.width;
         }
         this.positionY += this.speed;
-        const CANVAS_HEIGHT = parseInt(process.env.CANVAS_HEIGHT);
-        if (this.positionY >= CANVAS_HEIGHT - this.height) {
-            this.positionY = CANVAS_HEIGHT - this.height;
+        let canvasHeight = this.config.canvasHeight;
+        if (this.positionY >= canvasHeight - this.height) {
+            this.positionY = canvasHeight - this.height;
         }
     }
 

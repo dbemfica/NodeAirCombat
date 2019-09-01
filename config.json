@@ -1,0 +1,6 @@
+{
+    "canvasWidth": 600,
+    "canvasHeight": 600,
+    "fameRate": 16,
+    "webServerPort": 3000
+}

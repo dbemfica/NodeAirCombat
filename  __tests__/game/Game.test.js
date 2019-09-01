@@ -1,5 +1,6 @@
+const config = require('../../config.json');
 const Game = require('./../../src/game/Game');
-const game = new Game();
+const game = new Game(config);
 
 it('should start game', () => {
     game.start();

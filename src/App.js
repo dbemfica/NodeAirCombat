@@ -5,8 +5,9 @@ const io = require('socket.io');
 const Game = require('./game/Game');
 
 class App {
-    constructor() {
-        this.game = new Game();
+    constructor(config) {
+        this.config = config;
+        this.game = new Game(this.config);
         this.express = express();
         this.server = server;
         this.server = server.Server(this.express);
@@ -31,11 +32,11 @@ class App {
     start() {
         setInterval(() => {
             if (this.game.status === 1) {
-                this.game.update();    
+                this.game.update();
             }
             this.io.emit('game', this.game);
-        }, process.env.FRAME_RATE);
+        }, this.config.fameRate);
     }
 }
 
-module.exports = new App().server;
+module.exports = App;

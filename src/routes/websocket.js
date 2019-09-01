@@ -3,7 +3,7 @@ const Player = require('../game/Player');
 function routes({ io, Game }) {
     io.of('joystick').on('connection', (socket) => {
 
-        const player = new Player;
+        const player = new Player(Game.config);
         player.socket = socket.id;
         Game.addElement(player);
 
@@ -17,53 +17,74 @@ function routes({ io, Game }) {
 
         socket.on('moveUp', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveUp();
+            if (element !== undefined && element !== null) {
+                element.moveUp();
+            }
+
         });
 
         socket.on('moveDown', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveDown();
+            if (element !== undefined && element !== null) {
+                element.moveDown();
+            }
         });
 
         socket.on('moveLeft', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveLeft();
+            if (element !== undefined && element !== null) {
+                element.moveLeft();
+            }
         });
 
         socket.on('moveRight', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveRight();
+            if (element !== undefined && element !== null) {
+                element.moveRight();
+            }
         });
 
         socket.on('moveLeftUp', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveLeftUp();
+            if (element !== undefined && element !== null) {
+                element.moveLeftUp();
+            }
         });
 
         socket.on('moveRightUp', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveRightUp();
+            if (element !== undefined && element !== null) {
+                element.moveRightUp();
+            }
         });
 
         socket.on('moveLeftDown', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveLeftDown();
+            if (element !== undefined && element !== null) {
+                element.moveLeftDown();
+            }
         });
 
         socket.on('moveRightDown', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveRightDown();
+            if (element !== undefined && element !== null) {
+                element.moveRightDown();
+            }
         });
 
         socket.on('moveStop', () => {
             const element = Game.findPlayer(socket.id);
-            element.moveStop();
+            if (element !== undefined && element !== null) {
+                element.moveStop();
+            }
         });
 
         socket.on('fire', () => {
             const element = Game.findPlayer(socket.id);
-            const fire = element.fire(element);
-            Game.addElement(fire);
+            if (element !== undefined && element !== null) {
+                const fire = element.fire(element);
+                Game.addElement(fire);
+            }
         });
 
         socket.on('disconnect', () => {

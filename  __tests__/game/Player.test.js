@@ -1,5 +1,6 @@
+const config = require('../../config.json');
 const Player = require('./../../src/game/Player');
-const player = new Player();
+const player = new Player(config);
 
 it('should move player to up', () => {
     player.moveUp();
@@ -47,4 +48,20 @@ it('should move player to down', () => {
     player.moveDown();
     expect(player.positionX).toBe(400);
     expect(player.positionY).toBe(400);
+});
+
+it('should forced move player to up', () => {
+    player.positionY = 5;
+    player.moveUp();
+    player.moveUp();
+    expect(player.positionX).toBe(400);
+    expect(player.positionY).toBe(0);
+});
+
+it('should forced move player to down', () => {
+    player.positionY = 545;
+    player.moveDown();
+    player.moveDown();
+    expect(player.positionX).toBe(400);
+    expect(player.positionY).toBe(550);
 });

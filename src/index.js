@@ -1,4 +1,7 @@
-const env = require('dotenv').config().parsed;
-const app = require('./App');
+const config = require('../config.json');
+const App = require('./App');
+const app = new App(config);
 
-app.listen(process.env.WEB_SERVER_PORT || 3000);
+const server = app.server;
+
+server.listen(config.webServerPort || 3000);

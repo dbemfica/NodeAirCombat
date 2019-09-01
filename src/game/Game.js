@@ -3,7 +3,8 @@ const imageSize = require('image-size');
 const Enemy = require('./Enemy');
 
 class Game {
-    constructor(){
+    constructor(config){
+        this.config = config;
         this.playersStatus = [];
         this.frame = 0;
         this.status = 0;
