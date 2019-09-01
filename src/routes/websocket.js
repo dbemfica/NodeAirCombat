@@ -9,11 +9,8 @@ function routes({ io, Game }) {
 
         socket.on('startPause', () => {
             if (Game.status === 0) {
-                console.log('start');
                 Game.start();
-            }
-            if (Game.status === 1) {
-                console.log('pause');
+            } else if (Game.status === 1) {
                 Game.pause();
             }
         });

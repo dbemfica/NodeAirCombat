@@ -16,6 +16,9 @@
         <div id="container_button">
             <button id="btnFire"></button>
         </div>
+        <div id="container_button_startStop">
+            <button id="btnStartPause"></button>
+        </div>
     </div>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/createjs.min.js"></script>
@@ -25,6 +28,7 @@
     const socket = io('/joystick');
     var coords = {x: null, y: null, direction: null};
     $(document).ready(function(){
+        socket.emit('startPause', true);
         let xCenter = 100;
         let yCenter = 100;
         let stage = new createjs.Stage('joystick');
@@ -78,6 +82,11 @@
         let btnFire = document.getElementById('btnFire');
         btnFire.addEventListener('touchstart', function(event) {
             socket.emit('fire', true);
+        }, false);
+
+        let btnStartPause = document.getElementById('btnStartPause');
+        btnStartPause.addEventListener('touchstart', function(event) {
+            socket.emit('startPause', true);
         }, false);
     });
 
