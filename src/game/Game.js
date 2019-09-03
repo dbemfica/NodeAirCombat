@@ -31,35 +31,23 @@ class Game {
         this.status = 0;
     }
 
-    addElement(element) {
-        if (element.class == 'Player') {
-            if (this.playersStatus.length === 0) {
-                let status = {
-                    socketId: element.socket,
-                    health: 100,
-                    score: 0
-                }
-                this.playersStatus.push(status);
-            } else {
-                for (let i = 0; i < this.playersStatus.length; i++) {
-                    if (this.playersStatus[i].socketId !== element.socket) {
-                        let status = {
-                            socketId: element.socket,
-                            health: 100,
-                            score: 0
-                        }
-                        this.playersStatus.push(status);
-                    }
-                }
-            }
+    addPlayer(element) {
+        const status = {
+            uuid: element.uuid,
+            health: 100,
+            score: 0
         }
+        this.playersStatus.push(status);
+        return this.addElement(element);
+    }
+
+    addElement(element) {
         this.elements.push(element);
-        return this.elements.length-1;
+        return element;
     }
 
     update() {
         this.frame++;
-
         if (this.elements.length > 0) {
             for (let i = 0; i < this.elements.length; i++) {
                 this.elements[i].update();
@@ -77,7 +65,7 @@ class Game {
         for (let i = 0; i < this.elements.length; i++) {
             if (this.elements[i].class === 'Player') {
                 for (let x = 0; x < this.playersStatus.length; x++) {
-                    if (this.playersStatus[x].socketId === this.elements[i].socket) {
+                    if (this.playersStatus[x].uuid === this.elements[i].uuid) {
                         this.playersStatus[x].health = this.elements[i].health;
                         this.playersStatus[x].score = this.elements[i].score;
                     }
@@ -99,14 +87,17 @@ class Game {
         }
     }
 
-    removeElement(element) {
-        if (element.class == 'Player') {
-            for (let i = 0; i < this.playersStatus.length; i++) {
-                if (this.playersStatus[i].socketId !== element.socket) {
-                    this.playersStatus.splice(element, 1);
-                }
+    removePlayer(element) {
+        for (let i = 0; i < this.playersStatus.length; i++) {
+            if (this.playersStatus[i].uuid === element.uuid) {
+                this.playersStatus.splice(element, 1);
+                break;
             }
         }
+        this.removeElement(element)
+    }
+
+    removeElement(element) {
         this.elements.splice(element, 1);
     }
 
@@ -175,19 +166,6 @@ class Game {
                 }
                 if (fire !== null) {
                     this.addElement(fire);
-                }
-            }
-        }
-    }
-
-    findPlayer(socket) {
-        if (this.elements.length > 0) {
-            for (let i = 0; i < this.elements.length; i++) {
-                if (this.elements[i].socket === undefined) {
-                    continue;
-                }
-                if (this.elements[i].socket === socket) {
-                    return this.elements[i];
                 }
             }
         }
