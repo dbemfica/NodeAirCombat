@@ -10,7 +10,6 @@ class Player extends Element {
         this.class = 'Player';
         this.socket = null;
         this.health = 100;
-        this.score = 0;
         this.width = 50;
         this.height = 50;
         this.positionX = 400;
@@ -118,15 +117,17 @@ class Player extends Element {
         this.image = this.sprite.getFrame(1);
     }
 
-    fire(e) {
+    fire() {
+        const shooter = this;
         const shot = new Shot({
-            shooter: e,
+            shooter: shooter,
             positionX: (this.positionX + this.width / 2),
             positionY: this.positionY,
             lenght: this.shot.lenght,
             speed: this.shot.speed,
             color: this.shot.color,
-            direction: 'up'
+            direction: 'up',
+            sound: 'laser-shot'
         });
         return shot;
     }
@@ -139,15 +140,13 @@ class Player extends Element {
         this.onDead(element);
     }
 
-    addScore(score) {
-        this.score += score;
-    }
-
     onDead(element) {
         let health = this.health - element.damage;
         if (health <= 0) {
+            this.sound = 'explosion';
             let i = 1;
             let time = setInterval(() => {
+                this.sound = null;
                 this.image = this.sprite.getFrame(i+3);
                 i++;
                 if (i > 7) {
@@ -156,7 +155,7 @@ class Player extends Element {
                 }
             },30);
         } else {
-            this.health -= element.damage;
+            this.health -= health;
         }
     }
 }

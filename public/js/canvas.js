@@ -32,19 +32,29 @@ const canvas = {
                     this.ctx.fillStyle = e.color;
                     this.ctx.fillRect(e.positionX, e.positionY, e.width, e.height);
                 }
-                if (e.type === 'circle') {
+                if (e.class === 'Shot' && e.type === 'circle') {
                     this.ctx.beginPath();
                     this.ctx.fillStyle = e.color;
                     this.ctx.arc(e.positionX, e.positionY, e.lenght, 0, 2*Math.PI);
                     this.ctx.fill();
+                    if (e.sound !== null && e.sound !== undefined) {
+                        soundShot.stop();
+                        soundShot.play();
+                    }
                 }
                 if (e.class === 'Player' && e.type === 'image') {
+                    if (e.sound !== null) {
+                        soundExplosion.play();
+                    }
                     if (e.image !== undefined && e.image !== null) {
                         let img = e.image;
                         this.ctx.drawImage(imgPlayer, img.sx, img.sy, img.sWidth, img.sHeight, e.positionX, e.positionY, img.dWidth, img.dHeight);
                     }
                 }
                 if (e.class === 'Enemy' && e.type === 'image') {
+                    if (e.sound !== null) {
+                        soundExplosion.play();
+                    }
                     if (e.image !== undefined && e.image !== null) {
                         let img = e.image;
                         this.ctx.drawImage(imgEnemy, img.sx, img.sy, img.sWidth, img.sHeight, e.positionX, e.positionY, img.dWidth, img.dHeight);

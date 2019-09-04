@@ -33,8 +33,8 @@ class App {
         setInterval(() => {
             if (this.game.status === 1) {
                 this.game.update();
+                this.io.emit('game', this.game);
             }
-            this.io.emit('game', this.game);
         }, this.config.fameRate);
     }
 }

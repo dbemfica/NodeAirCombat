@@ -42,16 +42,18 @@ class Enemy extends Element {
         this.onDead(element);
     }
 
-    fire(e) {
+    fire() {
+        const shooter = this;
         if (this.frame % 200 === 0) {
             const shot = new Shot({
-                shooter: e,
+                shooter: shooter,
                 positionX: (this.positionX + this.width / 2),
                 positionY: this.positionY + this.height,
                 lenght: this.shot.lenght,
                 speed: this.shot.speed,
                 color: this.shot.color,
-                direction: 'down'
+                direction: 'down',
+                sound: 'laser-shot'
             });
             return shot;
         }
@@ -62,7 +64,9 @@ class Enemy extends Element {
         let health = this.health - element.damage;
         if (health <= 0) {
             let i = 1;
+            this.sound = 'explosion';
             let time = setInterval(() => {
+                this.sound = null;
                 this.image = this.sprite.getFrame(i+3);
                 i++;
                 if (i > 7) {

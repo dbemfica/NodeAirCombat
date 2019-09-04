@@ -16,6 +16,7 @@ class Shot extends Element {
         this.color = properties.color;
         this.direction = properties.direction;
         this.damage = 10;
+        this.sound = properties.sound;
     }
 
     update() {
@@ -25,6 +26,9 @@ class Shot extends Element {
         if (this.direction === 'down') {
             this.positionY += this.speed;
         }
+        setTimeout(() => {
+            this.sound = null;
+        }, 0);
     }
 
     colision(element) {

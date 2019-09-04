@@ -51,7 +51,7 @@ function routes({ io, Game }) {
         });
 
         socket.on('fire', () => {
-            const fire = socket.player.fire(socket.player);
+            const fire = socket.player.fire();
             Game.addElement(fire);
         });
 

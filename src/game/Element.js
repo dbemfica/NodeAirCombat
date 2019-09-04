@@ -6,6 +6,12 @@ class Element {
         this.health = 0;
         this.frame = 0;
         this.class = 'Element';
+        this.score = 0;
+        this.sound = null;
+    }
+
+    addScore(score) {
+        this.score += score;
     }
 
     update(){};

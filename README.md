@@ -13,14 +13,15 @@ Depois de ter baixado o códigos do projeto rode o seguinte comando
 ```bash
 npm install
 ```
-Depois você deve ter criar um arquivo **.env**, você pode copiar o aquivo **.env.example** para isso
-```bash
-cp .env.example .env
-```
 
 Depois basta rodar o comando
 ```bash
 npm run start
 ```
 
-Com o servidor rodando acesse o endereço **http://localhost:3000** para **http://localhost:3000/joystick** para acessar o joystick
+Com o servidor rodando acesse o endereço **http://[SEU IP]:3000** para **http://[SEU IP]:3000/joystick** para acessar o joystick
+
+## Referência
+Sons
+* https://freesound.org/people/InspectorJ/sounds/448226/ - Explosão
+* https://freesound.org/people/Robinhood76/sounds/107613/ - Tiro
