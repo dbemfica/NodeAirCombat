@@ -8,6 +8,7 @@ class Sprite {
         this.width = this.image.width;
         this.height = this.image.height;
 
+        this.frame = null;
         this.nFrames = nFrames;
         this.frames = [];
         this.makeFrames();
@@ -30,7 +31,8 @@ class Sprite {
     }
 
     getFrame(i) {
-        return this.frames[(i-1)];
+        this.frame = i;
+        return this.frames[(this.frame-1)];
     }
 }
 

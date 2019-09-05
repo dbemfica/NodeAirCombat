@@ -8,6 +8,7 @@ class Element {
         this.class = 'Element';
         this.score = 0;
         this.sound = null;
+        this.status = 1;
     }
 
     addScore(score) {

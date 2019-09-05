@@ -15,12 +15,12 @@
             <div class="score">Ponto: 0</div>
         </div>
         <div id="playerStatus2" class="playerStatus" style="float: right; display: none;">
-                <div class="brand"><span>P</span>2</div>
-                <div class="health-bar"><div class="health"></div></div>
-                <div class="score">Ponto: 0</div>
-            </div>
+            <div class="brand"><span>P</span>2</div>
+            <div class="health-bar"><div class="health"></div></div>
+            <div class="score">Ponto: 0</div>
+        </div>
+        <div id="gameOver">Game Over</div>
         <canvas id="canvas"></canvas>
-        <p style="text-align: center;">Acesse http://localhost:3000/joystick</p>
     </div>
     <img id="player" src="img/player.png" style="display: none;">
     <audio id="sound_laser_shot" src="/sounds/laser-shot.mp3"></audio>
@@ -49,6 +49,10 @@
             socket.on('game', (game) => {
                 playersStatus = game.playersStatus;
                 renderPlayersStatus();
+                console.log(game.status)
+                if (game.status === 2) {
+                    gameOver();
+                }
                 let background = [
                     {
                         x: game.background[0].x,
@@ -112,6 +116,11 @@
                     div.style.display = "block";
                 }
             }
+        }
+
+        function gameOver() {
+            let gameOver = document.getElementById("gameOver");
+            gameOver.style.display = "block";
         }
     </script>
 </body>

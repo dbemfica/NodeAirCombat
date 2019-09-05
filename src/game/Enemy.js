@@ -31,15 +31,18 @@ class Enemy extends Element {
         if (this.positionY < 140) {
             this.positionY += this.speed;
         }
-
+        if (this.status === 2) {
+            this.dying();
+        }
     }
 
-    colision(element) {
-        element.sufferDamage(this);
-    }
-
-    sufferDamage(element) {
-        this.onDead(element);
+    sufferDamage(damage) {
+        let health = this.health - damage;
+        if (health <= 0) {
+            this.dying();
+        } else {
+            this.health = health;
+        }
     }
 
     fire() {
@@ -60,22 +63,22 @@ class Enemy extends Element {
         return null;
     }
 
-    onDead(element) {
-        let health = this.health - element.damage;
-        if (health <= 0) {
-            let i = 1;
-            this.sound = 'explosion';
-            let time = setInterval(() => {
+    dying() {
+        if (this.frame % 2 === 0) {
+            this.status = 2;
+            let frameSprite = this.sprite.frame;
+            if (frameSprite === 1 || frameSprite === 2 || frameSprite === 3) {
+                frameSprite = 4;
+                this.sound = 'explosion';
+            } else {
+                frameSprite++;
+            }
+            this.image = this.sprite.getFrame(frameSprite);
+            if (frameSprite === 7) {
+                this.status = 0;
                 this.sound = null;
-                this.image = this.sprite.getFrame(i+3);
-                i++;
-                if (i > 7) {
-                    this.health -= element.damage;
-                    clearInterval(time);
-                }
-            },30);
-        } else {
-            this.health -= element.damage;
+                console.log(this.status)
+            }
         }
     }
 }

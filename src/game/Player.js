@@ -137,26 +137,29 @@ class Player extends Element {
     }
 
     sufferDamage(element) {
-        this.onDead(element);
-    }
-
-    onDead(element) {
         let health = this.health - element.damage;
         if (health <= 0) {
-            this.sound = 'explosion';
-            let i = 1;
-            let time = setInterval(() => {
-                this.sound = null;
-                this.image = this.sprite.getFrame(i+3);
-                i++;
-                if (i > 7) {
-                    this.health -= element.damage;
-                    clearInterval(time);
-                }
-            },30);
-        } else {
-            this.health -= health;
+            this.status = 2;
         }
+        this.health -= health;
+    }
+
+    update() {
+        if (this.status === 2) {
+            let frameSprite = this.sprite.frame;
+            if (frameSprite === 1 || frameSprite === 2 || frameSprite === 3) {
+                frameSprite = 4;
+                this.sound = 'explosion';
+            } else {
+                frameSprite++;
+                this.sound = null;
+            }
+            this.image = this.sprite.getFrame(frameSprite);
+            if (frameSprite === 7) {
+                this.status = 0;
+            }
+        }
+        this.frame++;
     }
 }
 

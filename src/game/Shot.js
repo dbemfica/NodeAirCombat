@@ -23,16 +23,26 @@ class Shot extends Element {
         if (this.direction === 'up') {
             this.positionY -= this.speed;
         }
+
         if (this.direction === 'down') {
             this.positionY += this.speed;
         }
+
+        if (this.positionX > 650 || this.positionX < -50) {
+            this.status = 0;
+        }
+
+        if (this.positionY > 650 || this.positionY < -50) {
+            this.status = 0;
+        }
+
         setTimeout(() => {
             this.sound = null;
         }, 0);
     }
 
     colision(element) {
-        this.health = 0;
+        this.status = 0;
         element.sufferDamage(this);
     }
 }

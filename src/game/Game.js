@@ -48,8 +48,9 @@ class Game {
 
     update() {
         this.frame++;
-        if (this.elements.length > 0) {
-            for (let i = 0; i < this.elements.length; i++) {
+        let num = this.elements.length;
+        if (num > 0) {
+            for (let i = 0; i < num; i++) {
                 this.elements[i].update();
             }
         }
@@ -59,6 +60,7 @@ class Game {
         this.addEnemy();
         this.enemyFire();
         this.updatePlayersStatus();
+        this.gameover();
     }
 
     updatePlayersStatus() {
@@ -90,46 +92,59 @@ class Game {
     removePlayer(element) {
         for (let i = 0; i < this.playersStatus.length; i++) {
             if (this.playersStatus[i].uuid === element.uuid) {
-                this.playersStatus.splice(element, 1);
+                this.playersStatus.splice(i, 1);
                 break;
             }
         }
-        this.removeElement(element)
+        let num = this.elements.length;
+        if (num > 0) {
+            for (let i = 0; i < num; i++) {
+                if (this.elements[i].uuid === element.uuid) {
+                    this.removeElement(i);
+                    break;
+                }
+            }
+        }
     }
 
-    removeElement(element) {
-        this.elements.splice(element, 1);
+    removeElement(i) {
+        this.elements.splice(i, 1);
     }
 
     removeElements() {
-        if (this.elements.length > 0) {
-            for (let i = 0; i < this.elements.length; i++) {
-                if (this.elements[i].health <= 0) {
-                    this.elements.splice(i, 1);
-                    continue;
-                }
-                if (this.elements[i].positionX > 900 || this.elements[i].positionX < -100) {
-                    this.elements.splice(i, 1);
-                    continue;
-                }
-                if (this.elements[i].positionY > 900 || this.elements[i].positionY < -100) {
-                    this.elements.splice(i, 1);
-                    continue;
+        let num = this.elements.length;
+        if (num > 0) {
+            for (let i = 0; i < num; i++) {
+                if (this.elements[i].status === 0) {
+                    if (this.elements[i].class === 'Player') {
+                        this.removePlayer(this.elements[i]);
+                        this.removeElements();
+                        break;
+                    } else {
+                        console.log("Remove element: " + this.elements[i].class)
+                        this.removeElement(i);
+                        this.removeElements();
+                        break;
+                    }
                 }
             }
         }
     }
 
     colision() {
-        if (this.elements.length > 0) {
-            for (let i = 0; i < this.elements.length; i++) {
+        let num = this.elements.length;
+        if (num > 0) {
+            for (let i = 0; i < num; i++) {
                 let e1 = this.elements[i];
                 let e1x1 = e1.positionX;
                 let e1x2 = e1.positionX+e1.width;
                 let e1y1 = e1.positionY;
                 let e1y2 = e1.positionY+e1.height;
-                for (let x = 0; x < this.elements.length; x++) {
+                for (let x = 0; x < num; x++) {
                     if (this.elements[i].uuid === this.elements[x].uuid) {
+                        continue;
+                    }
+                    if (this.elements[i].class === this.elements[x].class) {
                         continue;
                     }
                     let e2 = this.elements[x];
@@ -139,7 +154,7 @@ class Game {
                     let e2y2 = e2.positionY+e2.height;
 
                     if (e1x2 >= e2x1 && e1y2 >= e2y1 && e1x1 <= e2x2 && e1y2 >= e2y1 && e1x2 >= e2x1 && e1y1 <= e2y2 && e1x1 <= e2x2 && e1y1 <= e2y2) {
-                        e1.colision(e2);
+                        e1.sufferDamage(e2.damage);
                         if (e1.class === 'Shot' && e1.shooter !== undefined) {
                             e1.shooter.addScore(1);
                         }
@@ -168,6 +183,19 @@ class Game {
                     this.addElement(fire);
                 }
             }
+        }
+    }
+
+    gameover() {
+        let health = 0;
+        let playersStatus = this.playersStatus.length;
+        for (let i = 0; i < playersStatus; i++) {
+            if (this.playersStatus[i].health <= 0) {
+                health++;
+            }
+        }
+        if (playersStatus === health) {
+            this.status = 2;
         }
     }
 }
