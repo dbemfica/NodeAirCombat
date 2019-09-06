@@ -39,7 +39,7 @@ class Enemy extends Element {
     sufferDamage(damage) {
         let health = this.health - damage;
         if (health <= 0) {
-            this.dying();
+            this.status = 2;
         } else {
             this.health = health;
         }
@@ -65,7 +65,6 @@ class Enemy extends Element {
 
     dying() {
         if (this.frame % 2 === 0) {
-            this.status = 2;
             let frameSprite = this.sprite.frame;
             if (frameSprite === 1 || frameSprite === 2 || frameSprite === 3) {
                 frameSprite = 4;
@@ -76,8 +75,8 @@ class Enemy extends Element {
             this.image = this.sprite.getFrame(frameSprite);
             if (frameSprite === 7) {
                 this.status = 0;
+                this.health = 0;
                 this.sound = null;
-                console.log(this.status)
             }
         }
     }

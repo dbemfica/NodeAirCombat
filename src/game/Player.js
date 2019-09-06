@@ -27,6 +27,13 @@ class Player extends Element {
         this.damage = 10;
     }
 
+    update() {
+        this.frame++;
+        if (this.status === 2) {
+            this.dying();
+        }
+    }
+
     moveUp() {
         this.positionY -= this.speed;
         if (this.positionY <= 0) {
@@ -132,34 +139,31 @@ class Player extends Element {
         return shot;
     }
 
-    colision(element) {
-        element.sufferDamage(this);
-    }
-
-    sufferDamage(element) {
-        let health = this.health - element.damage;
-        if (health <= 0) {
-            this.status = 2;
-        }
-        this.health -= health;
-    }
-
-    update() {
-        if (this.status === 2) {
+    dying() {
+        if (this.frame % 2 === 0) {
             let frameSprite = this.sprite.frame;
             if (frameSprite === 1 || frameSprite === 2 || frameSprite === 3) {
                 frameSprite = 4;
                 this.sound = 'explosion';
             } else {
                 frameSprite++;
-                this.sound = null;
             }
             this.image = this.sprite.getFrame(frameSprite);
             if (frameSprite === 7) {
                 this.status = 0;
+                this.health = 0;
+                this.sound = null;
             }
         }
-        this.frame++;
+    }
+
+    sufferDamage(damage) {
+        let health = this.health - damage;
+        if (health <= 0) {
+            this.status = 2;
+        } else {
+            this.health = health;
+        }
     }
 }
 
