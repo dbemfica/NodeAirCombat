@@ -23,3 +23,4 @@ it('text dead', () => {
     expect(enemy.health).toBe(0);
     expect(enemy.status).toBe(0);
 });
+

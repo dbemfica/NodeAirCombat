@@ -27,7 +27,7 @@ h1{
     height: 600px;
 }
 .playerStatus{
-    width: 162px;
+    width: 174px;
     overflow: auto;
     margin-bottom: 4px;
 }
@@ -48,7 +48,7 @@ h1{
     background-color: #999999;
     border: 2px solid #333333;
     border-radius: 6px;
-    width: 120px;
+    width: 132px;
     height: 16px;
 }
 .playerStatus .health{
@@ -61,6 +61,24 @@ h1{
 .playerStatus .score{
     padding: 3px 0 0 2px;
     float: left;
+}
+.playerStatusConnected{
+    overflow: auto;
+    opacity: 0.1;
+}
+
+.wait-connect{
+    border: 1px solid #555555;
+    position: absolute;
+    height: 46px;
+    width: 174px;
+    text-align: center;
+}
+
+.wait-connect p{
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
 }
 #gameOver{
     width: 600px;

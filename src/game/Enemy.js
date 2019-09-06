@@ -46,19 +46,21 @@ class Enemy extends Element {
     }
 
     fire() {
-        const shooter = this;
-        if (this.frame % 200 === 0) {
-            const shot = new Shot({
-                shooter: shooter,
-                positionX: (this.positionX + this.width / 2),
-                positionY: this.positionY + this.height,
-                lenght: this.shot.lenght,
-                speed: this.shot.speed,
-                color: this.shot.color,
-                direction: 'down',
-                sound: 'laser-shot'
-            });
-            return shot;
+        if (this.status === 1) {
+            const shooter = this;
+            if (this.frame % 200 === 0) {
+                const shot = new Shot({
+                    shooter: shooter,
+                    positionX: (this.positionX + this.width / 2),
+                    positionY: this.positionY + this.height,
+                    lenght: this.shot.lenght,
+                    speed: this.shot.speed,
+                    color: this.shot.color,
+                    direction: 'down',
+                    sound: 'laser-shot'
+                });
+                return shot;
+            }
         }
         return null;
     }

@@ -42,4 +42,37 @@ it('Test colision', () => {
 
     expect(game.elements[0].health).toBe(90);
     expect(game.elements[1].health).toBe(10);
+    game.removeElement(1);
+    game.removeElement(0);
+});
+
+it('Test remove element after colision', () => {
+    const player = new Player(config);
+    player.positionX = 100;
+    player.positionY = 100;
+    game.addElement(player);
+
+    const enemy = new Enemy(config);
+    enemy.positionX = 100;
+    enemy.positionY = 100;
+    game.addElement(enemy);
+
+    expect(game.elements.length).toBe(2);
+
+    game.update();
+    game.update();
+
+    expect(game.elements[0].health).toBe(80);
+    expect(game.elements[1].status).toBe(2);
+
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+    game.update();
+
+    expect(game.elements.length).toBe(1);
 });

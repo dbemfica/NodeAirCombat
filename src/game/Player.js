@@ -34,6 +34,15 @@ class Player extends Element {
         }
     }
 
+    sufferDamage(damage) {
+        let health = this.health - damage;
+        if (health <= 0) {
+            this.status = 2;
+        } else {
+            this.health = health;
+        }
+    }
+
     moveUp() {
         this.positionY -= this.speed;
         if (this.positionY <= 0) {
@@ -125,18 +134,20 @@ class Player extends Element {
     }
 
     fire() {
-        const shooter = this;
-        const shot = new Shot({
-            shooter: shooter,
-            positionX: (this.positionX + this.width / 2),
-            positionY: this.positionY,
-            lenght: this.shot.lenght,
-            speed: this.shot.speed,
-            color: this.shot.color,
-            direction: 'up',
-            sound: 'laser-shot'
-        });
-        return shot;
+        if (this.status === 1) {
+            const shooter = this;
+            const shot = new Shot({
+                shooter: shooter,
+                positionX: (this.positionX + this.width / 2),
+                positionY: this.positionY,
+                lenght: this.shot.lenght,
+                speed: this.shot.speed,
+                color: this.shot.color,
+                direction: 'up',
+                sound: 'laser-shot'
+            });
+            return shot;
+        }
     }
 
     dying() {

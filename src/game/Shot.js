@@ -20,6 +20,7 @@ class Shot extends Element {
     }
 
     update() {
+        this.frame++;
         if (this.direction === 'up') {
             this.positionY -= this.speed;
         }
@@ -36,14 +37,16 @@ class Shot extends Element {
             this.status = 0;
         }
 
-        setTimeout(() => {
+        if (this.frame > 1) {
             this.sound = null;
-        }, 0);
+        }
     }
 
-    colision(element) {
-        this.status = 0;
-        element.sufferDamage(this);
+    sufferDamage(damage) {
+        this.health = this.health - damage;
+        if (this.health <= 0) {
+            this.status = 0;
+        }
     }
 }
 

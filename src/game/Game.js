@@ -55,8 +55,8 @@ class Game {
             }
         }
         this.backgroundUpdate();
-        this.colision();
         this.removeElements();
+        this.colision();
         this.addEnemy();
         this.enemyFire();
         this.updatePlayersStatus();
@@ -121,7 +121,6 @@ class Game {
                         this.removeElements();
                         break;
                     } else {
-                        console.log("Remove element: " + this.elements[i].class)
                         this.removeElement(i);
                         this.removeElements();
                         break;
@@ -136,6 +135,9 @@ class Game {
         if (num > 0) {
             for (let i = 0; i < num; i++) {
                 let e1 = this.elements[i];
+                if (e1.status !== 1) {
+                    continue;
+                }
                 let e1x1 = e1.positionX;
                 let e1x2 = e1.positionX+e1.width;
                 let e1y1 = e1.positionY;

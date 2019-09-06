@@ -9,15 +9,21 @@
 <body>
     <div id="container">
         <h1><img src="/img/logo.png"></h1>
-        <div id="playerStatus1" class="playerStatus" style="float: left; display: none;">
-            <div class="brand"><span>P</span>1</div>
-            <div class="health-bar"><div class="health"></div></div>
-            <div class="score">Ponto: 0</div>
+        <div id="playerStatus1" class="playerStatus" style="float: left;">
+            <div class="wait-connect"><p>Conecte o seu smartphone:</p><p>http://[SEU IP]:3000/joystick</p></div>
+            <div class="playerStatusConnected">
+                <div class="brand"><span>P</span>1</div>
+                <div class="health-bar"><div class="health"></div></div>
+                <div class="score">Ponto: 0</div>
+            </div>
         </div>
-        <div id="playerStatus2" class="playerStatus" style="float: right; display: none;">
-            <div class="brand"><span>P</span>2</div>
-            <div class="health-bar"><div class="health"></div></div>
-            <div class="score">Ponto: 0</div>
+        <div id="playerStatus2" class="playerStatus" style="float: right;">
+            <div class="wait-connect"><p>Conecte o seu smartphone:</p><p>http://[SEU IP]:3000/joystick</p></div>
+            <div class="playerStatusConnected">
+                <div class="brand"><span>P</span>2</div>
+                <div class="health-bar"><div class="health"></div></div>
+                <div class="score">Ponto: 0</div>
+            </div>
         </div>
         <div id="gameOver">Game Over</div>
         <canvas id="canvas"></canvas>
@@ -105,9 +111,11 @@
             for (let i = 0; i < playersStatus.length; i++) {
                 if (i === 0) {
                     let div = document.getElementById("playerStatus1");
+                    div.querySelector(".wait-connect").style.display = "none";
+                    div.querySelector(".playerStatusConnected").style.display = "block";
+                    div.querySelector(".playerStatusConnected").style.opacity = 1;
                     div.querySelector(".health").style.width = playersStatus[i].health+"%";
                     div.querySelector(".score").innerHTML = "Pontos: "+playersStatus[i].score;
-                    div.style.display = "block";
                 }
                 if (i === 1) {
                     let div = document.getElementById("playerStatus2");
