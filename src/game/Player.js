@@ -4,11 +4,11 @@ const Shot = require('./Shot');
 const Sprite = require('../tools/Sprite');
 
 class Player extends Element {
-    constructor(config) {
+    constructor(config, playerNumber = 1, avatar = 'player.png') {
         super();
         this.config = config;
         this.class = 'Player';
-        this.socket = null;
+        this.playerNumber = playerNumber;
         this.health = 100;
         this.width = 50;
         this.height = 50;
@@ -17,7 +17,7 @@ class Player extends Element {
         this.speed = 5;
 
         this.type = 'image';
-        this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', 'player.png'), 10);
+        this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', avatar), 10);
         this.image = this.sprite.getFrame(1);
 
         this.shot = {};
@@ -165,15 +165,6 @@ class Player extends Element {
                 this.health = 0;
                 this.sound = null;
             }
-        }
-    }
-
-    sufferDamage(damage) {
-        let health = this.health - damage;
-        if (health <= 0) {
-            this.status = 2;
-        } else {
-            this.health = health;
         }
     }
 }

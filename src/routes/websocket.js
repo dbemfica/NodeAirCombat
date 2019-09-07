@@ -3,8 +3,15 @@ const Player = require('../game/Player');
 function routes({ io, Game }) {
     io.of('joystick').on('connection', (socket) => {
 
-        const player = new Player(Game.config);
-        socket.player = Game.addPlayer(player);
+        if (Game.playersStatus.length === 0) {
+            const player = new Player(Game.config, 1, 'player.png');
+            socket.player = Game.addPlayer(player);
+        } else if (Game.playersStatus.length === 1) {
+            const player = new Player(Game.config, 2, 'player2.png');
+            socket.player = Game.addPlayer(player);
+        } else if (Game.playersStatus.length === 2) {
+            socket.disconnect();
+        }
 
         socket.on('startPause', () => {
             if (Game.status === 0) {

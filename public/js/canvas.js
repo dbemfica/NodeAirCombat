@@ -48,7 +48,12 @@ const canvas = {
                     }
                     if (e.image !== undefined && e.image !== null) {
                         let img = e.image;
-                        this.ctx.drawImage(imgPlayer, img.sx, img.sy, img.sWidth, img.sHeight, e.positionX, e.positionY, img.dWidth, img.dHeight);
+                        if (e.playerNumber === 1) {
+                            this.ctx.drawImage(imgPlayer, img.sx, img.sy, img.sWidth, img.sHeight, e.positionX, e.positionY, img.dWidth, img.dHeight);
+                        }
+                        if (e.playerNumber === 2) {
+                            this.ctx.drawImage(imgPlayer2, img.sx, img.sy, img.sWidth, img.sHeight, e.positionX, e.positionY, img.dWidth, img.dHeight);
+                        }
                     }
                 }
                 if (e.class === 'Enemy' && e.type === 'image') {
