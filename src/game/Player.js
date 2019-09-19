@@ -12,8 +12,8 @@ class Player extends Element {
         this.health = 100;
         this.width = 50;
         this.height = 50;
-        this.positionX = 400;
-        this.positionY = 400;
+        this.positionX = 375;
+        this.positionY = 375;
         this.speed = 5;
 
         this.type = 'image';
