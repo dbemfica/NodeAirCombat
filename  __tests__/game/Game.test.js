@@ -9,11 +9,6 @@ it('test start', () => {
     expect(game.status).toBe(1);
 });
 
-it('test pause', () => {
-    game.pause();
-    expect(game.status).toBe(0);
-});
-
 it('test add element', () => {
     const enemy = new Enemy(config);
     const enemy2 = new Enemy(config);

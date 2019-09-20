@@ -6,12 +6,8 @@ function routes({ io, Game }) {
         const player = new Player(Game.config);
         socket.player = Game.addPlayer(player);
 
-        socket.on('startPause', () => {
-            if (Game.status === 0) {
-                Game.start();
-            } else if (Game.status === 1) {
-                Game.pause();
-            }
+        socket.on('start', () => {
+            Game.start();
         });
 
         socket.on('moveUp', () => {

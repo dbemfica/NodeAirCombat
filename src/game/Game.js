@@ -27,10 +27,6 @@ class Game {
         this.status = 1;
     }
 
-    pause() {
-        this.status = 0;
-    }
-
     addPlayer(element) {
         const status = {
             uuid: element.uuid,
