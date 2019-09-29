@@ -13,12 +13,8 @@ function routes({ io, Game }) {
             socket.disconnect();
         }
 
-        socket.on('startPause', () => {
-            if (Game.status === 0) {
-                Game.start();
-            } else if (Game.status === 1) {
-                Game.pause();
-            }
+        socket.on('start', () => {
+            Game.start();
         });
 
         socket.on('moveUp', () => {
