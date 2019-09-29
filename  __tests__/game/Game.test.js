@@ -71,3 +71,9 @@ it('Test remove element after colision', () => {
 
     expect(game.elements.length).toBe(1);
 });
+
+it('test restart game', () => {
+    game.restart();
+    expect(game.frame).toBe(0);
+    expect(game.status).toBe(0);
+});

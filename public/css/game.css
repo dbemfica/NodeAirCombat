@@ -88,11 +88,17 @@ h1{
     top: 185px;
     left: calc(50% - 300px);
     text-align: center;
-    padding-top: 300px;
+    padding-top: 250px;
     background-color: rgba(255, 255, 255, 0.3);
     color: red;
     font-weight: bold;
     text-shadow: 2px 2px #000000;
     font-size: 34px;
     display: none;
+}
+#gameOver a{
+    color: blue;
+}
+#gameOver a:hover{
+    color: blue;
 }

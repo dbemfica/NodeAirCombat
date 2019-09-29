@@ -25,7 +25,6 @@
     const socket = io('/joystick');
     var coords = {x: null, y: null, direction: null};
     $(document).ready(function(){
-        socket.emit('start', true);
         let xCenter = 100;
         let yCenter = 100;
         let stage = new createjs.Stage('joystick');

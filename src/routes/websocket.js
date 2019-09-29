@@ -1,14 +1,20 @@
-const Player = require('../game/Player');
-
 function routes({ io, Game }) {
+    io.of('/game').on('connection', (socket) => {
+        socket.on('restart', () => {
+            Game.restart();
+        });
+    })
+
     io.of('joystick').on('connection', (socket) => {
 
+        console.log('Player connected');
+
         if (Game.playersStatus.length === 0) {
-            const player = new Player(Game.config, 1, 'player.png');
-            socket.player = Game.addPlayer(player);
+            socket.player = Game.addPlayer(1, 'player.png');
+            Game.start();
         } else if (Game.playersStatus.length === 1) {
-            const player = new Player(Game.config, 2, 'player2.png');
-            socket.player = Game.addPlayer(player);
+            socket.player = Game.addPlayer(2, 'player2.png');
+            Game.start();
         } else if (Game.playersStatus.length === 2) {
             socket.disconnect();
         }
@@ -59,6 +65,7 @@ function routes({ io, Game }) {
         });
 
         socket.on('disconnect', () => {
+            console.log('Player disconnected');
             Game.removePlayer(socket.player);
         });
     });

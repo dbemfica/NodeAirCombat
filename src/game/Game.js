@@ -1,6 +1,7 @@
 const path = require('path');
 const imageSize = require('image-size');
 const Enemy = require('./Enemy');
+const Player = require('./Player');
 
 class Game {
     constructor(config){
@@ -27,14 +28,21 @@ class Game {
         this.status = 1;
     }
 
-    addPlayer(element) {
+    addPlayer(playerNumber, avatar) {
+        if (this.playersStatus.length >= 2) {
+            return null;
+        }
+
+        let player = new Player(this.config, playerNumber, avatar);
         const status = {
-            uuid: element.uuid,
+            uuid: player.uuid,
             health: 100,
             score: 0
         }
+
         this.playersStatus.push(status);
-        return this.addElement(element);
+        this.addElement(player);
+        return player;
     }
 
     addElement(element) {
@@ -195,6 +203,24 @@ class Game {
         if (playersStatus === health) {
             this.status = 2;
         }
+    }
+
+    restart() {
+        this.frame = 0;
+        this.status = 0;
+
+        this.elements = [];
+
+        this.background = [
+            {
+                x: 0,
+                y: (this.imgBg.height - 600) * -1
+            },
+            {
+                x: 0,
+                y: ((this.imgBg.height + this.imgBg.height) - 600) * -1
+            }
+        ]
     }
 }
 
