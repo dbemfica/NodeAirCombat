@@ -25,7 +25,7 @@
                 <div class="score">Ponto: 0</div>
             </div>
         </div>
-        <div id="gameOver">Game Over<br><a id="btnRestart" href="javascript:;">Restart</a></div>
+        <div id="gameOver">Game Over</div>
         <canvas id="canvas"></canvas>
     </div>
     <img id="player" src="img/player.png" style="display: none;">
@@ -75,6 +75,10 @@
                 ];
                 canvas.loadBackground(background);
                 canvas.addElements(game.elements);
+            });
+
+            socket.on('restart', () => {
+                domGameOver.style.display = "none";
             });
             canvas.run();
         }
@@ -151,13 +155,8 @@
 
         function gameOver() {
             domGameOver.style.display = "block";
-        }
-
-        let btnRestart = document.getElementById("btnRestart");
-        btnRestart.addEventListener('click', () => {
             socket.emit('restart', true);
-            domGameOver.style.display = "none";
-        });
+        }
     </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 function routes({ io, Game }) {
-    io.of('/game').on('connection', (socket) => {
+    io.of('game').on('connection', (socket) => {
         socket.on('restart', () => {
-            Game.restart();
+            io.of('joystick').emit('restart', true);
         });
     })
 
@@ -62,6 +62,11 @@ function routes({ io, Game }) {
         socket.on('fire', () => {
             const fire = socket.player.fire();
             Game.addElement(fire);
+        });
+
+        socket.on('restart', () => {
+            Game.restart();
+            io.of('game').emit('restart', true);
         });
 
         socket.on('disconnect', () => {

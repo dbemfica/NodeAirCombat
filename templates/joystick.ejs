@@ -16,6 +16,9 @@
         <div id="container_button">
             <button id="btnFire"></button>
         </div>
+        <div id="restart">
+            <a id="btnRestart" href="javascript:;">Restart</a>
+        </div>
     </div>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/createjs.min.js"></script>
@@ -80,10 +83,16 @@
             socket.emit('fire', true);
         }, false);
 
-        let btnStartPause = document.getElementById('btnStartPause');
-        btnStartPause.addEventListener('touchstart', function(event) {
-            socket.emit('startPause', true);
+        let btnRestart = document.getElementById('btnRestart');
+        btnRestart.addEventListener('click', function() {
+            socket.emit('restart', true);
+            window.location.reload();
         }, false);
+
+        socket.on('restart', () => {
+            let restart = document.getElementById('restart');
+            restart.style.display = "block";
+        });
     });
 
     function calculateCoords(angle, distance) {
