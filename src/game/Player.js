@@ -44,88 +44,103 @@ class Player extends Element {
     }
 
     moveUp() {
-        this.positionY -= this.speed;
-        if (this.positionY <= 0) {
-            this.positionY = 0;
+        if (this.status === 1) {
+            this.positionY -= this.speed;
+            if (this.positionY <= 0) {
+                this.positionY = 0;
+            }
         }
     }
 
     moveDown() {
-        this.positionY += this.speed;
-        let canvasHeight = this.config.canvasHeight;
-        if (this.positionY >= canvasHeight - this.height) {
-            this.positionY = canvasHeight - this.height;
+        if (this.status === 1) {
+            this.positionY += this.speed;
+            let canvasHeight = this.config.canvasHeight;
+            if (this.positionY >= canvasHeight - this.height) {
+                this.positionY = canvasHeight - this.height;
+            }
         }
     }
 
     moveLeft() {
-        this.image = this.sprite.getFrame(3);
-        this.positionX -= this.speed;
-        if (this.positionX <= 0) {
-            this.positionX = 0;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(3);
+            this.positionX -= this.speed;
+            if (this.positionX <= 0) {
+                this.positionX = 0;
+            }
         }
-
     }
 
     moveRight() {
-        this.image = this.sprite.getFrame(2);
-        this.positionX += this.speed;
-        let canvasWidth = this.config.canvasWidth;
-        if (this.positionX >= canvasWidth - this.width) {
-            this.positionX = canvasWidth - this.width;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(2);
+            this.positionX += this.speed;
+            let canvasWidth = this.config.canvasWidth;
+            if (this.positionX >= canvasWidth - this.width) {
+                this.positionX = canvasWidth - this.width;
+            }
         }
     }
 
     moveLeftUp() {
-        this.image = this.sprite.getFrame(3);
-        this.positionX -= this.speed;
-        if (this.positionX <= 0) {
-            this.positionX = 0;
-        }
-        this.positionY -= this.speed;
-        if (this.positionY <= 0) {
-            this.positionY = 0;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(3);
+            this.positionX -= this.speed;
+            if (this.positionX <= 0) {
+                this.positionX = 0;
+            }
+            this.positionY -= this.speed;
+            if (this.positionY <= 0) {
+                this.positionY = 0;
+            }
         }
     }
 
     moveRightUp() {
-        this.image = this.sprite.getFrame(2);
-        this.positionX += this.speed;
-        let canvasWidth = this.config.canvasWidth;
-        if (this.positionX >= canvasWidth - this.width) {
-            this.positionX = canvasWidth - this.width;
-        }
-        this.positionY -= this.speed;
-        if (this.positionY <= 0) {
-            this.positionY = 0;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(2);
+            this.positionX += this.speed;
+            let canvasWidth = this.config.canvasWidth;
+            if (this.positionX >= canvasWidth - this.width) {
+                this.positionX = canvasWidth - this.width;
+            }
+            this.positionY -= this.speed;
+            if (this.positionY <= 0) {
+                this.positionY = 0;
+            }
         }
     }
 
     moveLeftDown() {
-        this.image = this.sprite.getFrame(3);
-        this.positionX -= this.speed;
-        if (this.positionX <= 0) {
-            this.positionX = 0;
-        }
-        this.image = this.sprite.getFrame(3);
-        this.positionY += this.speed;
-        let canvasHeight = this.config.canvasHeight;
-        if (this.positionY >= canvasHeight - this.height) {
-            this.positionY = canvasHeight - this.height;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(3);
+            this.positionX -= this.speed;
+            if (this.positionX <= 0) {
+                this.positionX = 0;
+            }
+            this.image = this.sprite.getFrame(3);
+            this.positionY += this.speed;
+            let canvasHeight = this.config.canvasHeight;
+            if (this.positionY >= canvasHeight - this.height) {
+                this.positionY = canvasHeight - this.height;
+            }
         }
     }
 
     moveRightDown() {
-        this.image = this.sprite.getFrame(2);
-        this.positionX += this.speed;
-        let canvasWidth = this.config.canvasWidth;
-        if (this.positionX >= canvasWidth - this.width) {
-            this.positionX = canvasWidth - this.width;
-        }
-        this.positionY += this.speed;
-        let canvasHeight = this.config.canvasHeight;
-        if (this.positionY >= canvasHeight - this.height) {
-            this.positionY = canvasHeight - this.height;
+        if (this.status === 1) {
+            this.image = this.sprite.getFrame(2);
+            this.positionX += this.speed;
+            let canvasWidth = this.config.canvasWidth;
+            if (this.positionX >= canvasWidth - this.width) {
+                this.positionX = canvasWidth - this.width;
+            }
+            this.positionY += this.speed;
+            let canvasHeight = this.config.canvasHeight;
+            if (this.positionY >= canvasHeight - this.height) {
+                this.positionY = canvasHeight - this.height;
+            }
         }
     }
 
