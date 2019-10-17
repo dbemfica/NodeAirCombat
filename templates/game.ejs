@@ -126,6 +126,13 @@
         }
 
         function updatePlayersStatus() {
+            if (playersStatus.length == 0) {
+                let div1 = document.getElementById("playerStatus1");
+                div1.querySelector(".health").style.width = 0;
+
+                let div2 = document.getElementById("playerStatus2");
+                div2.querySelector(".health").style.width = 0;
+            }
             for (let i = 0; i < playersStatus.length; i++) {
                 if (i === 0) {
                     let div = document.getElementById("playerStatus1");
