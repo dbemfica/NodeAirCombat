@@ -11,10 +11,8 @@ function routes({ io, Game }) {
 
         if (Game.playersStatus.length === 0) {
             socket.player = Game.addPlayer(1, 'player.png');
-            Game.start();
         } else if (Game.playersStatus.length === 1) {
             socket.player = Game.addPlayer(2, 'player2.png');
-            Game.start();
         } else if (Game.playersStatus.length === 2) {
             socket.disconnect();
         }

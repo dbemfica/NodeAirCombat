@@ -10,16 +10,20 @@
   <body>
     <div id="container">
         <div id="logo"><img src="/img/logo.png"></div>
-        <div id="container_joystick">
+        <p id="container_joystick">
             <canvas id="joystick" height="200" width="200"></canvas>
-        </div>
-        <div id="container_button">
+        </p>
+        <p id="container_button">
             <button id="btnFire"></button>
-        </div>
+        </p>
         <div id="restart">
             <a id="btnRestart" href="javascript:;">Restart</a>
         </div>
+        <div id="fullscreen">
+            <a id="btnFullScreen" href="javascript:;">Modo Fullscreen</a>
+        </div>
     </div>
+
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/createjs.min.js"></script>
     <script src="/js/hammer.min.js"></script>
@@ -89,12 +93,19 @@
             window.location.reload();
         }, false);
 
+        let btnFullscreen = document.getElementById("btnFullScreen");
+        btnFullscreen.addEventListener("click", function() {
+            let fullscreen = document.getElementById('fullscreen');
+            fullscreen.style.display = "none";
+            document.body.requestFullscreen();
+            socket.emit('start', true);
+        }, false);
+
         socket.on('restart', () => {
             let restart = document.getElementById('restart');
             restart.style.display = "block";
         });
     });
-
     function calculateCoords(angle, distance) {
         let coords = {};
         distance = Math.min(distance, 100);
