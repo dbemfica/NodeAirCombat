@@ -7,7 +7,7 @@ function routes({ io, Game }) {
 
     io.of('joystick').on('connection', (socket) => {
 
-        console.log('Player connected');
+        // console.log('Player connected');
 
         if (Game.playersStatus.length === 0) {
             socket.player = Game.addPlayer(1, 'player.png');
@@ -68,7 +68,7 @@ function routes({ io, Game }) {
         });
 
         socket.on('disconnect', () => {
-            console.log('Player disconnected');
+            // console.log('Player disconnected');
             Game.removePlayer(socket.player);
         });
     });

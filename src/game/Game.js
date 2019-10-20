@@ -2,6 +2,7 @@ const path = require('path');
 const imageSize = require('image-size');
 const Enemy = require('./Enemy');
 const Player = require('./Player');
+var fs = require('fs');
 
 class Game {
     constructor(config){
@@ -84,12 +85,12 @@ class Game {
         if (this.frame %2 === 0) {
             this.background[0].y += 1;
             this.background[1].y += 1;
-        }
-        if (this.background[0].y > 600) {
-            this.background[0].y = (this.imgBg.height + (this.imgBg.height - 601)) * -1;
-        }
-        if (this.background[1].y > 600) {
-            this.background[1].y = (this.imgBg.height + (this.imgBg.height - 600)) * -1;
+            if (this.background[0].y >= 600) {
+                this.background[0].y = (this.imgBg.height + (this.imgBg.height - 600)) * -1;
+            }
+            if (this.background[1].y >= 600) {
+                this.background[1].y = (this.imgBg.height + (this.imgBg.height - 600)) * -1;
+            }
         }
     }
 
