@@ -113,6 +113,7 @@
 
         coords.x = distance * Math.cos(rads);
         coords.y = distance * Math.sin(rads);
+        coords.direction = null;
 
         if (coords.y < -15 && (coords.x > -25 && coords.x < 25)) {
             coords.direction = 'up';
@@ -138,6 +139,13 @@
         if (coords.x > 15 && coords.y > 15) {
             coords.direction = 'rightDown';
         }
+        if (coords.x > 0 && coords.x <= 15 && coords.y > 0 && coords.y <= 15) {
+            coords.direction = 'stop';
+        }
+        if (coords.direction === null) {
+            coords.direction = 'stop';
+        }
+
         return coords;
     }
 
@@ -169,6 +177,9 @@
         }
         if (direction === 'rightDown') {
             socket.emit('moveRightDown', true);
+        }
+        if (direction === 'stop') {
+            socket.emit('moveStop', true);
         }
     }
     </script>
