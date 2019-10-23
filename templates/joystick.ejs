@@ -92,7 +92,6 @@
             socket.emit('restart', true);
             let restart = document.getElementById('restart');
             restart.style.display = "none";
-            // window.location.reload();
         }, false);
 
         let btnFullscreen = document.getElementById("btnFullScreen");
@@ -104,8 +103,12 @@
         }, false);
 
         socket.on('restart', () => {
+            console.log('restart');
             let restart = document.getElementById('restart');
             restart.style.display = "block";
+
+            let fullscreen = document.getElementById('fullscreen');
+            fullscreen.style.display = "none";
         });
     });
     function calculateCoords(angle, distance) {

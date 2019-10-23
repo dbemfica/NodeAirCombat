@@ -85,3 +85,11 @@ it('test restart game', () => {
     expect(game.status).toBe(1);
     expect(game.elements.length).toBe(1);
 });
+
+it('test start after gameover', () => {
+    game.connectedPlayers[0].health = 0;
+    game.gameover();
+    expect(game.status).toBe(2);
+    game.start();
+    expect(game.status).toBe(2);
+});

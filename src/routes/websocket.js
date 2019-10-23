@@ -13,6 +13,10 @@ function routes({ io, Game }) {
             socket.indexPlayer = Game.addPlayer(2, 'player2.png');
         }
 
+        if (Game.status === 2) {
+            io.of('joystick').emit('restart', true);
+        }
+
         socket.on('start', () => {
             Game.start();
         });

@@ -26,7 +26,9 @@ class Game {
     }
 
     start() {
-        this.status = 1;
+        if (this.status === 0) {
+            this.status = 1;
+        }
     }
 
     addPlayer(playerNumber, avatar) {
@@ -163,6 +165,7 @@ class Game {
                 health++;
             }
         }
+
         if (connectedPlayersLenght === health) {
             this.status = 2;
         }
