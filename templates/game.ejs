@@ -39,7 +39,7 @@
         var imgPlayer = null;
         var imgPlayer2 = null;
         var imgEnemy = null;
-        var playersStatus = null;
+        var connectedPlayers = null;
         var playerOneConnected = false;
         var playerTwoConnected = false;
         let domGameOver = document.getElementById("gameOver");
@@ -58,9 +58,11 @@
             //canvas
             canvas.addElement('canvas');
             socket.on('game', (game) => {
-                playersStatus = game.playersStatus;
-                updatePlayersStatus();
+                connectedPlayers = game.connectedPlayers;
+                updateConnectedPlayers();
+                console.log('game status: '+ game.status);
                 if (game.status === 2) {
+                    console.log('gameover')
                     gameOver();
                 }
                 let background = [
@@ -125,15 +127,15 @@
             })
         }
 
-        function updatePlayersStatus() {
-            if (playersStatus.length == 0) {
+        function updateConnectedPlayers() {
+            if (connectedPlayers.length == 0) {
                 let div1 = document.getElementById("playerStatus1");
                 div1.querySelector(".health").style.width = 0;
 
                 let div2 = document.getElementById("playerStatus2");
                 div2.querySelector(".health").style.width = 0;
             }
-            for (let i = 0; i < playersStatus.length; i++) {
+            for (let i = 0; i < connectedPlayers.length; i++) {
                 if (i === 0) {
                     let div = document.getElementById("playerStatus1");
                     if (playerOneConnected === false) {
@@ -142,8 +144,8 @@
                         div.querySelector(".playerStatusConnected").style.opacity = 1;
                         playerOneConnected = true;
                     }
-                    div.querySelector(".health").style.width = playersStatus[i].health+"%";
-                    div.querySelector(".score").innerHTML = "Pontos: "+playersStatus[i].score;
+                    div.querySelector(".health").style.width = connectedPlayers[i].health+"%";
+                    div.querySelector(".score").innerHTML = "Pontos: "+connectedPlayers[i].score;
 
                 }
                 if (i === 1) {
@@ -154,8 +156,8 @@
                         div.querySelector(".playerStatusConnected").style.opacity = 1;
                         playerTwoConnected = true;
                     }
-                    div.querySelector(".health").style.width = playersStatus[i].health+"%";
-                    div.querySelector(".score").innerHTML = "Pontos: "+playersStatus[i].score;
+                    div.querySelector(".health").style.width = connectedPlayers[i].health+"%";
+                    div.querySelector(".score").innerHTML = "Pontos: "+connectedPlayers[i].score;
                 }
             }
         }

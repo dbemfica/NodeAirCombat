@@ -15,6 +15,7 @@ class Player extends Element {
         this.positionX = 375;
         this.positionY = 375;
         this.speed = 5;
+        this.score = 0;
 
         this.type = 'image';
         this.sprite = new Sprite(path.resolve(__dirname, '..', '..', 'public', 'img', avatar), 10);
@@ -180,6 +181,32 @@ class Player extends Element {
                 this.health = 0;
                 this.sound = null;
             }
+        }
+    }
+
+    restart() {
+        this.status = 1;
+        this.health = 100;
+        this.positionX = 375;
+        this.positionY = 375;
+        this.score = 0;
+        this.image = this.sprite.getFrame(1);
+    }
+
+    getAttributes() {
+        return {
+            uuid: this.uuid,
+            class: this.class = 'Player',
+            playerNumber: this.playerNumber,
+            health: this.health,
+            width: this.width,
+            height: this.height,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            speed: this.speed,
+            score: this.score,
+            type: this.type = 'image',
+            image: this.image = this.sprite.getFrame(1)
         }
     }
 }

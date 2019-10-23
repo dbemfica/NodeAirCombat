@@ -73,7 +73,15 @@ it('Test remove element after colision', () => {
 });
 
 it('test restart game', () => {
+    game.addPlayer(1, 'player.png')
+
+    const enemy = new Enemy(config);
+    enemy.positionX = 100;
+    enemy.positionY = 100;
+    game.addElement(enemy);
+
     game.restart();
     expect(game.frame).toBe(0);
-    expect(game.status).toBe(0);
+    expect(game.status).toBe(1);
+    expect(game.elements.length).toBe(1);
 });

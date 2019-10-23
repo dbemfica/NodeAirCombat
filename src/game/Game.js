@@ -7,7 +7,7 @@ var fs = require('fs');
 class Game {
     constructor(config){
         this.config = config;
-        this.playersStatus = [];
+        this.connectedPlayers = [];
         this.frame = 0;
         this.status = 0;
         this.elements = [];
@@ -30,25 +30,23 @@ class Game {
     }
 
     addPlayer(playerNumber, avatar) {
-        if (this.playersStatus.length >= 2) {
+        if (this.connectedPlayers.length >= 2) {
             return null;
         }
 
         let player = new Player(this.config, playerNumber, avatar);
-        const status = {
-            uuid: player.uuid,
-            health: 100,
-            score: 0
-        }
-
-        this.playersStatus.push(status);
+        this.connectedPlayers.push(player);
         this.addElement(player);
-        return player;
+
+        return this.connectedPlayers.length-1;
     }
 
     addElement(element) {
         this.elements.push(element);
-        return element;
+    }
+
+    removeAllElements() {
+        this.elements = [];
     }
 
     update() {
@@ -59,26 +57,12 @@ class Game {
                 this.elements[i].update();
             }
         }
+        this.gameover();
         this.backgroundUpdate();
-        this.removeElements();
+        this.clearElements();
         this.colision();
         this.addEnemy();
         this.enemyFire();
-        this.updatePlayersStatus();
-        this.gameover();
-    }
-
-    updatePlayersStatus() {
-        for (let i = 0; i < this.elements.length; i++) {
-            if (this.elements[i].class === 'Player') {
-                for (let x = 0; x < this.playersStatus.length; x++) {
-                    if (this.playersStatus[x].uuid === this.elements[i].uuid) {
-                        this.playersStatus[x].health = this.elements[i].health;
-                        this.playersStatus[x].score = this.elements[i].score;
-                    }
-                }
-            }
-        }
     }
 
     backgroundUpdate() {
@@ -94,40 +78,18 @@ class Game {
         }
     }
 
-    removePlayer(element) {
-        for (let i = 0; i < this.playersStatus.length; i++) {
-            if (this.playersStatus[i].uuid === element.uuid) {
-                this.playersStatus.splice(i, 1);
-                break;
-            }
-        }
-        let num = this.elements.length;
-        if (num > 0) {
-            for (let i = 0; i < num; i++) {
-                if (this.elements[i].uuid === element.uuid) {
-                    this.removeElement(i);
-                    break;
-                }
-            }
-        }
-    }
-
     removeElement(i) {
         this.elements.splice(i, 1);
     }
 
-    removeElements() {
+    clearElements() {
         let num = this.elements.length;
         if (num > 0) {
             for (let i = 0; i < num; i++) {
                 if (this.elements[i].status === 0) {
-                    if (this.elements[i].class === 'Player') {
-                        this.removePlayer(this.elements[i]);
-                        this.removeElements();
-                        break;
-                    } else {
+                    if (this.elements[i].class !== 'Player') {
                         this.removeElement(i);
-                        this.removeElements();
+                        this.clearElements();
                         break;
                     }
                 }
@@ -195,22 +157,30 @@ class Game {
 
     gameover() {
         let health = 0;
-        let playersStatus = this.playersStatus.length;
-        for (let i = 0; i < playersStatus; i++) {
-            if (this.playersStatus[i].health <= 0) {
+        let connectedPlayersLenght = this.connectedPlayers.length;
+        for (let i = 0; i < connectedPlayersLenght; i++) {
+            if (this.connectedPlayers[i].health <= 0) {
                 health++;
             }
         }
-        if (playersStatus === health) {
+        if (connectedPlayersLenght === health) {
             this.status = 2;
         }
     }
 
     restart() {
         this.frame = 0;
-        this.status = 0;
+        this.status = 1;
 
-        this.elements = [];
+        let connectedPlayers = this.connectedPlayers;
+        this.connectedPlayers = [];
+        this.removeAllElements();
+
+        for (let i = 0; i < connectedPlayers.length; i++) {
+            connectedPlayers[i].restart();
+            this.connectedPlayers.push(connectedPlayers[i]);
+            this.addElement(connectedPlayers[i]);
+        }
 
         this.background = [
             {

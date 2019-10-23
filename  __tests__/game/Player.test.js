@@ -87,3 +87,12 @@ it('text dead', () => {
     expect(player.health).toBe(0);
     expect(player.status).toBe(0);
 });
+
+it('text restart', () => {
+    player.restart();
+    expect(player.status).toBe(1);
+    expect(player.health).toBe(100);
+    expect(player.positionX).toBe(375);
+    expect(player.positionY).toBe(375);
+    expect(player.score).toBe(0);
+});

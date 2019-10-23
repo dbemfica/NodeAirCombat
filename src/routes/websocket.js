@@ -7,14 +7,10 @@ function routes({ io, Game }) {
 
     io.of('joystick').on('connection', (socket) => {
 
-        // console.log('Player connected');
-
-        if (Game.playersStatus.length === 0) {
-            socket.player = Game.addPlayer(1, 'player.png');
-        } else if (Game.playersStatus.length === 1) {
-            socket.player = Game.addPlayer(2, 'player2.png');
-        } else if (Game.playersStatus.length === 2) {
-            socket.disconnect();
+        if (Game.connectedPlayers.length === 0) {
+            socket.indexPlayer = Game.addPlayer(1, 'player.png');
+        } else if (Game.connectedPlayers.length === 1) {
+            socket.indexPlayer = Game.addPlayer(2, 'player2.png');
         }
 
         socket.on('start', () => {
@@ -22,54 +18,49 @@ function routes({ io, Game }) {
         });
 
         socket.on('moveUp', () => {
-            socket.player.moveUp();
+            Game.connectedPlayers[socket.indexPlayer].moveUp();
         });
 
         socket.on('moveDown', () => {
-            socket.player.moveDown();
+            Game.connectedPlayers[socket.indexPlayer].moveDown();
         });
 
         socket.on('moveLeft', () => {
-            socket.player.moveLeft();
+            Game.connectedPlayers[socket.indexPlayer].moveLeft();
         });
 
         socket.on('moveRight', () => {
-            socket.player.moveRight();
+            Game.connectedPlayers[socket.indexPlayer].moveRight();
         });
 
         socket.on('moveLeftUp', () => {
-            socket.player.moveLeftUp();
+            Game.connectedPlayers[socket.indexPlayer].moveLeftUp();
         });
 
         socket.on('moveRightUp', () => {
-            socket.player.moveRightUp();
+            Game.connectedPlayers[socket.indexPlayer].moveRightUp();
         });
 
         socket.on('moveLeftDown', () => {
-            socket.player.moveLeftDown();
+            Game.connectedPlayers[socket.indexPlayer].moveLeftDown();
         });
 
         socket.on('moveRightDown', () => {
-            socket.player.moveRightDown();
+            Game.connectedPlayers[socket.indexPlayer].moveRightDown();
         });
 
         socket.on('moveStop', () => {
-            socket.player.moveStop();
+            Game.connectedPlayers[socket.indexPlayer].moveStop();
         });
 
         socket.on('fire', () => {
-            const fire = socket.player.fire();
+            const fire = Game.connectedPlayers[socket.indexPlayer].fire();
             Game.addElement(fire);
         });
 
         socket.on('restart', () => {
             Game.restart();
             io.of('game').emit('restart', true);
-        });
-
-        socket.on('disconnect', () => {
-            // console.log('Player disconnected');
-            Game.removePlayer(socket.player);
         });
     });
 }

@@ -90,7 +90,9 @@
         let btnRestart = document.getElementById('btnRestart');
         btnRestart.addEventListener('click', function() {
             socket.emit('restart', true);
-            window.location.reload();
+            let restart = document.getElementById('restart');
+            restart.style.display = "none";
+            // window.location.reload();
         }, false);
 
         let btnFullscreen = document.getElementById("btnFullScreen");
