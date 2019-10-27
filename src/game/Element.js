@@ -18,6 +18,23 @@ class Element {
     update(){};
     colision(){};
     sufferDamage(){};
+
+    getAttributes() {
+        return {
+            uuid: this.uuid,
+            class: this.class,
+            playerNumber: this.playerNumber,
+            width: this.width,
+            height: this.height,
+            positionX: this.positionX,
+            positionY: this.positionY,
+            lenght: this.lenght,
+            color: this.color,
+            type: this.type,
+            image: this.image,
+            sound: this.sound
+        }
+    }
 }
 
 module.exports = Element;

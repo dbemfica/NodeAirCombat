@@ -193,20 +193,13 @@ class Player extends Element {
         this.image = this.sprite.getFrame(1);
     }
 
-    getAttributes() {
+    getState() {
         return {
             uuid: this.uuid,
             class: this.class = 'Player',
             playerNumber: this.playerNumber,
             health: this.health,
-            width: this.width,
-            height: this.height,
-            positionX: this.positionX,
-            positionY: this.positionY,
-            speed: this.speed,
             score: this.score,
-            type: this.type = 'image',
-            image: this.image = this.sprite.getFrame(1)
         }
     }
 }

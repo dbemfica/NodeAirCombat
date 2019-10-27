@@ -59,12 +59,18 @@ function routes({ io, Game }) {
 
         socket.on('fire', () => {
             const fire = Game.connectedPlayers[socket.indexPlayer].fire();
-            Game.addElement(fire);
+            if (fire !== undefined) {
+                Game.addElement(fire);
+            }
         });
 
         socket.on('restart', () => {
             Game.restart();
             io.of('game').emit('restart', true);
+        });
+
+        socket.on('disconnect', () => {
+            Game.disconnectPlayer(socket.indexPlayer);
         });
     });
 }

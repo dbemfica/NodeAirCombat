@@ -60,9 +60,7 @@
             socket.on('game', (game) => {
                 connectedPlayers = game.connectedPlayers;
                 updateConnectedPlayers();
-                console.log('game status: '+ game.status);
                 if (game.status === 2) {
-                    console.log('gameover')
                     gameOver();
                 }
                 let background = [

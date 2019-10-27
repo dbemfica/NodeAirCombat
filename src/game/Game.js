@@ -7,6 +7,7 @@ var fs = require('fs');
 class Game {
     constructor(config){
         this.config = config;
+        this.payload = null;
         this.connectedPlayers = [];
         this.frame = 0;
         this.status = 0;
@@ -60,6 +61,7 @@ class Game {
             }
         }
         this.gameover();
+        this.updatePayload();
         this.backgroundUpdate();
         this.clearElements();
         this.colision();
@@ -80,8 +82,8 @@ class Game {
         }
     }
 
-    removeElement(i) {
-        this.elements.splice(i, 1);
+    removeElement(index) {
+        this.elements.splice(index, 1);
     }
 
     clearElements() {
@@ -195,6 +197,36 @@ class Game {
                 y: ((this.imgBg.height + this.imgBg.height) - 600) * -1
             }
         ]
+    }
+
+    disconnectPlayer(index) {
+        let player = this.connectedPlayers[index];
+        this.connectedPlayers.splice(index, 1);
+        for (let i = 0; i < this.elements.length; i++) {
+            if (this.elements[i].uuid === player.uuid) {
+                this.elements.splice(i, 1);
+                return true;
+            }
+        }
+    }
+
+    updatePayload() {
+        this.payload = {};
+        this.payload.background = this.background;
+        this.payload.config = this.config;
+
+        this.payload.connectedPlayers = [];
+        for (let i = 0; i < this.connectedPlayers.length; i++) {
+            this.payload.connectedPlayers.push(this.connectedPlayers[i].getState());
+        }
+
+        this.payload.elements = [];
+        for (let i = 0; i < this.elements.length; i++) {
+            this.payload.elements.push(this.elements[i].getAttributes());
+        }
+
+        this.payload.frame = this.frame;
+        this.payload.status = this.status;
     }
 }
 
