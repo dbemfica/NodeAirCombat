@@ -8,6 +8,10 @@ function routes({ io, Game }) {
     io.of('joystick').on('connection', (socket) => {
         socket.indexPlayer = Game.addPlayer();
 
+        if (socket.indexPlayer === false) {
+            io.of('joystick').emit('busy', true);
+        }
+
         if (Game.status === 2) {
             io.of('joystick').emit('restart', true);
         }

@@ -19,6 +19,7 @@
         <div id="restart">
             <a id="btnRestart" href="javascript:;">Restart</a>
         </div>
+        <div id="busy">Não tem espaço para conexão</div>
         <div id="fullscreen">
             <a id="btnFullScreen" href="javascript:;">Modo Fullscreen</a>
         </div>
@@ -103,9 +104,19 @@
         }, false);
 
         socket.on('restart', () => {
-            console.log('restart');
             let restart = document.getElementById('restart');
             restart.style.display = "block";
+
+            let fullscreen = document.getElementById('fullscreen');
+            fullscreen.style.display = "none";
+        });
+
+        socket.on('busy', () => {
+            let busy = document.getElementById('busy');
+            busy.style.display = "block";
+
+            let restart = document.getElementById('restart');
+            restart.style.display = "none";
 
             let fullscreen = document.getElementById('fullscreen');
             fullscreen.style.display = "none";
