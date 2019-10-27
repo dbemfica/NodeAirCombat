@@ -140,7 +140,7 @@ class Game {
 
     addEnemy() {
         if (this.frame % 300 === 0) {
-            const enemy = new Enemy({positionX: Math.random() * (600 - 0) + 0});
+            const enemy = new Enemy({positionX: Math.random() * (600 - 40) + 0});
             this.addElement(enemy);
         }
     }

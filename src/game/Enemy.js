@@ -24,6 +24,7 @@ class Enemy extends Element {
         this.shot.color = '#8e0000';
         this.damage = 10;
         this.speedFire = 1;
+        this.shotDelay = Math.floor(Math.random() * (300 - 180)) + 180;
     }
 
     update() {
@@ -48,7 +49,7 @@ class Enemy extends Element {
     fire() {
         if (this.status === 1) {
             const shooter = this;
-            if (this.frame % 200 === 0) {
+            if (this.frame % this.shotDelay === 0) {
                 const shot = new Shot({
                     shooter: shooter,
                     positionX: (this.positionX + this.width / 2),
