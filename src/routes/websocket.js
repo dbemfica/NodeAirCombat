@@ -6,12 +6,7 @@ function routes({ io, Game }) {
     })
 
     io.of('joystick').on('connection', (socket) => {
-
-        if (Game.connectedPlayers.length === 0) {
-            socket.indexPlayer = Game.addPlayer(1, 'player.png');
-        } else if (Game.connectedPlayers.length === 1) {
-            socket.indexPlayer = Game.addPlayer(2, 'player2.png');
-        }
+        socket.indexPlayer = Game.addPlayer();
 
         if (Game.status === 2) {
             io.of('joystick').emit('restart', true);

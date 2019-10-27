@@ -2,13 +2,12 @@ const path = require('path');
 const imageSize = require('image-size');
 const Enemy = require('./Enemy');
 const Player = require('./Player');
-var fs = require('fs');
 
 class Game {
     constructor(config){
         this.config = config;
         this.payload = null;
-        this.connectedPlayers = [];
+        this.connectedPlayers = [null, null];
         this.frame = 0;
         this.status = 0;
         this.elements = [];
@@ -32,16 +31,35 @@ class Game {
         }
     }
 
-    addPlayer(playerNumber, avatar) {
-        if (this.connectedPlayers.length >= 2) {
-            return null;
+    addPlayer() {
+        let connectedPlayersLenght = this.connectedPlayers.length;
+        let slot = null;
+        let busySlots = 0;
+        for (let i = 0; i < connectedPlayersLenght; i++) {
+            if (this.connectedPlayers[i] !== null) {
+                busySlots++;
+            }
+            if (busySlots > 2) {
+                return false;
+            }
+            if (this.connectedPlayers[i] === null && slot === null) {
+                slot = i;
+            }
         }
 
-        let player = new Player(this.config, playerNumber, avatar);
-        this.connectedPlayers.push(player);
-        this.addElement(player);
+        let numberPlayer = slot + 1;
+        let avatar = null;
+        if (numberPlayer === 1) {
+            avatar = 'player.png';
+        } else if (numberPlayer === 2) {
+            avatar = 'player2.png';
+        }
 
-        return this.connectedPlayers.length-1;
+        let player = new Player(this.config, numberPlayer, avatar);
+
+        this.connectedPlayers[slot] = player;
+        this.addElement(player);
+        return slot;
     }
 
     addElement(element) {
@@ -163,12 +181,12 @@ class Game {
         let health = 0;
         let connectedPlayersLenght = this.connectedPlayers.length;
         for (let i = 0; i < connectedPlayersLenght; i++) {
-            if (this.connectedPlayers[i].health <= 0) {
-                health++;
+            if (this.connectedPlayers[i] !== null) {
+                health += this.connectedPlayers[i].health;
             }
         }
 
-        if (connectedPlayersLenght === health) {
+        if (health === 0) {
             this.status = 2;
         }
     }
@@ -178,13 +196,15 @@ class Game {
         this.status = 1;
 
         let connectedPlayers = this.connectedPlayers;
-        this.connectedPlayers = [];
+        this.connectedPlayers = [null, null];
         this.removeAllElements();
 
         for (let i = 0; i < connectedPlayers.length; i++) {
-            connectedPlayers[i].restart();
-            this.connectedPlayers.push(connectedPlayers[i]);
-            this.addElement(connectedPlayers[i]);
+            if (connectedPlayers[i] !== null) {
+                connectedPlayers[i].restart();
+                this.connectedPlayers[i] = connectedPlayers[i];
+                this.addElement(connectedPlayers[i]);
+            }
         }
 
         this.background = [
@@ -201,7 +221,7 @@ class Game {
 
     disconnectPlayer(index) {
         let player = this.connectedPlayers[index];
-        this.connectedPlayers.splice(index, 1);
+        this.connectedPlayers[index] = null;
         for (let i = 0; i < this.elements.length; i++) {
             if (this.elements[i].uuid === player.uuid) {
                 this.elements.splice(i, 1);
@@ -217,7 +237,9 @@ class Game {
 
         this.payload.connectedPlayers = [];
         for (let i = 0; i < this.connectedPlayers.length; i++) {
-            this.payload.connectedPlayers.push(this.connectedPlayers[i].getState());
+            if (this.connectedPlayers[i] !== null) {
+                this.payload.connectedPlayers.push(this.connectedPlayers[i].getState());
+            }
         }
 
         this.payload.elements = [];

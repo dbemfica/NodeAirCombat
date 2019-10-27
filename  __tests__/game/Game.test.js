@@ -96,5 +96,6 @@ it('test start after gameover', () => {
 
 it('test remove player ', () => {
     game.disconnectPlayer(0);
-    expect(game.connectedPlayers.length).toBe(0);
+    expect(game.connectedPlayers[0]).toBe(null);
+    expect(game.connectedPlayers[1]).toBe(null);
 });
