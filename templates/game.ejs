@@ -88,7 +88,7 @@
         function loadImageBackgroud() {
             return new Promise((resolve) => {
                 imageBackgroud = new Image();
-                imageBackgroud.src = "http://localhost:3000/img/map.png"
+                imageBackgroud.src = "http://<%= config.webServerHost %>:<%= config.webServerPort %>/img/map.png"
                 imageBackgroud.onload = () => {
                     resolve(imageBackgroud)
                 }
@@ -98,7 +98,7 @@
         function loadImagePlayer() {
             return new Promise((resolve) => {
                 imgPlayer = new Image();
-                imgPlayer.src = "http://localhost:3000/img/player.png"
+                imgPlayer.src = "http://<%= config.webServerHost %>:<%= config.webServerPort %>/img/player.png"
                 imgPlayer.onload = () => {
                     resolve(imgPlayer)
                 }
@@ -108,7 +108,7 @@
         function loadImagePlayer2() {
             return new Promise((resolve) => {
                 imgPlayer2 = new Image();
-                imgPlayer2.src = "http://localhost:3000/img/player2.png"
+                imgPlayer2.src = "http://<%= config.webServerHost %>:<%= config.webServerPort %>/img/player2.png"
                 imgPlayer2.onload = () => {
                     resolve(imgPlayer2)
                 }
@@ -118,7 +118,7 @@
         function loadImageEnemy() {
             return new Promise((resolve) => {
                 imgEnemy = new Image();
-                imgEnemy.src = "http://localhost:3000/img/enemy.png"
+                imgEnemy.src = "http://<%= config.webServerHost %>:<%= config.webServerPort %>/img/enemy.png"
                 imgEnemy.onload = () => {
                     resolve(imgEnemy)
                 }

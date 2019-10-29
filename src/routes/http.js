@@ -1,3 +1,4 @@
+const config = require('../../config.json');
 const routes = require('express').Router();
 
 routes.get('/', (req, res) => {
@@ -13,7 +14,7 @@ routes.get('/creditos', (req, res) => {
 });
 
 routes.get('/game', (req, res) => {
-    res.render('game');
+    res.render('game', {config: config});
 });
 
 routes.get('/joystick', (req, res) => {

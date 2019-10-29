@@ -2,5 +2,6 @@
     "canvasWidth": 600,
     "canvasHeight": 600,
     "fameRate": 16,
+    "webServerHost": "127.0.0.1",
     "webServerPort": 3000
 }
