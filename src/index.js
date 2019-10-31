@@ -4,4 +4,4 @@ const app = new App(config);
 
 const server = app.server;
 
-server.listen(config.webServerPort || 3000, config.webServerHost);
+server.listen(config.webServerPort || 3000);
