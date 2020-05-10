@@ -5,7 +5,7 @@
 
 É um jogo de combate aero desenvolvido em Pixel Arte estilo os jogos antigos como os de Mega Drive ou Super Nintendo como foco em uma ação frenética e reflexos rápidas para conseguir sobreviver.
 
-<img align="center" alt="Logo" src="https://github.com/dbemfica/NodeAirCombat/blob/master/public/img/combat.gif?raw=true">
+<img align="center" alt="Combate" src="https://github.com/dbemfica/NodeAirCombat/blob/master/public/img/combat.gif?raw=true">
 
 Aqui você controla uma aero nave que voará continuamente combatendo seus inimigos para sobreviver e acumular pontos. Tente sobreviver e acumular o maxímo de pontos possível.
 
